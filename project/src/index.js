@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//App
 import Automat from './components/automat';
+//User library
 import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
