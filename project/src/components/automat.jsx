@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './automat.css';
 
 
 class Automat extends Component{
@@ -14,7 +15,7 @@ class Automat extends Component{
             </>
         });
     }
-    VratHranu([a,b], jmenoSignalu){
+    VratHranu([a,b], znackaSignalu){
         const polomerVrcholu=10;
         const h=10; //vyska trojuhelnik sipky
         const delka=Math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2);
@@ -39,7 +40,7 @@ class Automat extends Component{
                 ]}
                 stroke="black" fill="black" stroke-width="2"
             />
-            <text x={(a[0]+b[0])/2} y={(a[1]+b[1])/2} fill="red">{jmenoSignalu}</text>
+            <text x={(a[0]+b[0])/2} y={(a[1]+b[1])/2} fill="red">{znackaSignalu}</text>
         </>
     }
     VratHrany(p_listPoziciHran){
@@ -48,41 +49,48 @@ class Automat extends Component{
         });
     }
     DecrePocetVrcholu(){
-        this.setState({pocetVrcholu: this.state.pocetVrcholu-1});
+        if(this.state.pocetVrcholu>1) this.setState({pocetVrcholu: this.state.pocetVrcholu-1});
     }
     IncrePocetVrcholu(){
-        this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
+        if(this.state.pocetVrcholu<5) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
     }
 
     render(){
         const listsPoziciVrcholu=[
             //pozice 1 vrcholu
-            [[600,400]],
+            [[300,400]],
             //pozice 2 vrcholu
-            [[600,400],[900,400]],
+            [[300,400],[600,400]],
             //pozice 3 vrcholu: rovnostrany trojuhelnik
-            [[600,400],[900,400],[750,140]],
+            [[300,400],[600,400],[450,140]],
             //pozice 4 vrcholu: ctverec
-            [[600,400],[900,400],[900,100],[600,100]],
+            [[300,400],[600,400],[600,100],[300,100]],
             //pozice 5 vrcholu:
-            [[600,400],[900,400],[950,200],[750,50],[550,200]]
+            [[300,400],[600,400],[650,200],[450,50],[250,200]]
         ];
         const listPoziciHran=[
-            [[600,400], [900,400]],
-            [[900,400], [900,100]],
-            [[900,100], [600,100]]
+            [[300,400], [600,400]],
+            [[600,400], [600,100]],
+            [[600,100], [300,100]]
         ];
         return(
             <div>
-                <h1>Hello world</h1>
-                <p>Pocet vrcholu: 
-                    <button onClick= {()=>this.DecrePocetVrcholu()} className='btn btn-primary btn-sm'>-</button> 
-                    {this.state.pocetVrcholu} 
-                    <button onClick ={()=> this.IncrePocetVrcholu()} className='btn btn-primary btn-sm'>+</button></p>
-                <svg width="1200" height="800">
-                    {this.VratVrcholy(listsPoziciVrcholu,this.state.pocetVrcholu)}
-                    {this.VratHrany(listPoziciHran)}
-                </svg>
+                <div className="divLeft">
+                    <h1>Hello world</h1>
+                    <pre>                                                                </pre>
+                    <p>Pocet vrcholu: 
+                        <button onClick= {()=>this.DecrePocetVrcholu()} className='btn btn-primary btn-sm'>-</button> 
+                        {this.state.pocetVrcholu} 
+                        <button onClick ={()=> this.IncrePocetVrcholu()} className='btn btn-primary btn-sm'>+</button></p>
+                </div>
+                <div className="divRight">
+                   
+                    <svg width="900" height="600">
+                        <polyline points="0,0 900,0 900,600 0,600 0,0" fill= "white" stroke="black" stroke-width="2"/>
+                        {this.VratVrcholy(listsPoziciVrcholu,this.state.pocetVrcholu)}
+                        {this.VratHrany(listPoziciHran)}
+                    </svg>
+                </div>
             </div>
         );
     }
