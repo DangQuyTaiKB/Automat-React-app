@@ -5,10 +5,13 @@ import './automat.css';
 class Automat extends Component{
     constructor(){
         super();
-        this.state ={pocetVrcholu:1};
+        this.state ={
+            pocetVrcholu:4,
+            listDvojciIndexu: [['0','1']]
+        };
     }
-    VratVrcholy(p_listsPoziciVrcholu, p_pocetVrcholu){
-        return p_listsPoziciVrcholu[p_pocetVrcholu-1].map((vrchol,index)=>{
+    VratVrcholy(p_listPoziciVrcholu){
+        return p_listPoziciVrcholu.map((vrchol,index)=>{
             return <> 
                 <circle cx= {vrchol[0]} cy={vrchol[1]} r="10" stroke="black" stroke-width="2" fill="white"></circle>
                 <text x={vrchol[0]-5} y={vrchol[1]+5} fill="red">{index}</text>
@@ -45,7 +48,7 @@ class Automat extends Component{
     }
     VratHrany(p_listPoziciHran){
         return p_listPoziciHran.map((dvojce,index) =>{
-            return this.VratHranu(dvojce,"s"+index);
+            return this.VratHranu(dvojce);
         });
     }
     DecrePocetVrcholu(){
@@ -68,26 +71,27 @@ class Automat extends Component{
             //pozice 5 vrcholu:
             [[300,400],[600,400],[650,200],[450,50],[250,200]]
         ];
-        const listPoziciHran=[
-            [[300,400], [600,400]],
-            [[600,400], [600,100]],
-            [[600,100], [300,100]]
-        ];
+        //tao list pozi
+        let listPoziciVrcholu= listsPoziciVrcholu[this.state.pocetVrcholu-1];
+        //tao list vi tri bang list dvojci indexu
+        let listPoziciHran= this.state.listDvojciIndexu.map(
+            dvojceIndexu=>[listPoziciVrcholu[Number(dvojceIndexu[0])],listPoziciVrcholu[Number(dvojceIndexu[1])]]
+        );
         return(
             <div>
                 <div className="divLeft">
                     <h1>Hello world</h1>
                     <pre>                                                                </pre>
                     <p>Pocet vrcholu: 
-                        <button onClick= {()=>this.DecrePocetVrcholu()} className='btn btn-primary btn-sm'>-</button> 
+                        <button onClick= {()=>this.DecrePocetVrcholu()}>-</button> 
                         {this.state.pocetVrcholu} 
-                        <button onClick ={()=> this.IncrePocetVrcholu()} className='btn btn-primary btn-sm'>+</button></p>
+                        <button onClick ={()=> this.IncrePocetVrcholu()}>+</button></p>
                 </div>
                 <div className="divRight">
                    
                     <svg width="900" height="600">
                         <polyline points="0,0 900,0 900,600 0,600 0,0" fill= "white" stroke="black" stroke-width="2"/>
-                        {this.VratVrcholy(listsPoziciVrcholu,this.state.pocetVrcholu)}
+                        {this.VratVrcholy(listPoziciVrcholu)}
                         {this.VratHrany(listPoziciHran)}
                     </svg>
                 </div>
