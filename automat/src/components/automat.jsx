@@ -136,3 +136,7 @@ class Automat extends Component{
 }
 
 export default Automat;
+
+
+
+
