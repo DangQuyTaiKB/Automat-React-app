@@ -8,8 +8,7 @@ class Automat extends Component{
         super();
         this.state ={
             pocetVrcholu:5,
-            listDvojciIndexu: [],
-            //listSignalu:["a","b","c"],
+            listInformaceHran: [],
             listForm1 : []
         };
         this.HandleChange=this.HandleChange.bind(this);
@@ -17,19 +16,12 @@ class Automat extends Component{
     }
     VratVrcholy(p_listVrcholu){
         return p_listVrcholu.map((vrchol,index)=>{
-<<<<<<< HEAD
             return VratVrchol(vrchol,index);
-=======
-            return <> 
-                <circle cx= {vrchol[0]} cy={vrchol[1]} r="25" stroke="black" strokeWidth="2" fill="white"></circle>
-                <text x={vrchol[0]-5} y={vrchol[1]+5} fill="red">{index}</text>
-            </>
->>>>>>> d4be189794c6438995e83abf739c792a33428a14
         });
     }
     VratHrany(p_listHran){
-        return p_listHran.map(hrana =>{
-            return VratHranu(hrana);
+        return p_listHran.map(infHrany =>{
+            return VratHranu(infHrany[0],infHrany[1]);
         });
     }
     VratForm(){
@@ -60,14 +52,14 @@ class Automat extends Component{
         let pocatecni= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
         let koncovy= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
         if(pocatecni>=0&&koncovy>=0&&pocatecni<this.state.pocetVrcholu&&koncovy<this.state.pocetVrcholu){
-            this.state.listDvojciIndexu.push(e.target.value);
+            this.state.listInformaceHran.push(e.target.value);
             this.setState({
-                listDvojciIndexu:this.state.listDvojciIndexu
+                listInformaceHran:this.state.listInformaceHran
             });
         }
     }
     HandleSubmit(e){
-        alert(`Jedna hrana[${this.state.listDvojciIndexu[this.state.listDvojciIndexu.length-1]}] byla tvorena`);
+        alert(`Jedna hrana[${this.state.listInformaceHran[this.state.listInformaceHran.length-1]}] byla tvorena`);
         e.preventDefault();
     }
     DecrePocetVrcholu(){
@@ -95,10 +87,8 @@ class Automat extends Component{
         //Number() de chuyen index thanh so
         //dua vao index do lay pozice bang listVrcholu
         //map vao tao ra listHran
-        let listHran= this.state.listDvojciIndexu.map(dvojiceIndexu=>
-            (Number(dvojiceIndexu.split(" ")[0])<this.state.pocetVrcholu&&Number(dvojiceIndexu.split(" ")[1])<this.state.pocetVrcholu)
-            ?[listVrcholu[Number(dvojiceIndexu.split(" ")[0])],listVrcholu[Number(dvojiceIndexu.split(" ")[1])]]
-            :[NaN,NaN]
+        let listHran= this.state.listInformaceHran.map(inf=>
+            [[listVrcholu[Number(inf.split(" ")[0])],listVrcholu[Number(inf.split(" ")[1])]], inf.split(" ")[2]]
         );
         return(
             <div>
@@ -128,7 +118,3 @@ class Automat extends Component{
 }
 
 export default Automat;
-
-
-
-

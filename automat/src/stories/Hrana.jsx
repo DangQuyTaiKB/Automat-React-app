@@ -1,4 +1,4 @@
-function VratHranu([a,b],signaly){
+export const Hrana=({a,b,signaly})=>{
     const polomerVrcholu=20;
     const h=10; //vyska trojuhelnik sipky
     const delka=Math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2);
@@ -13,7 +13,7 @@ function VratHranu([a,b],signaly){
         const y6=y3+h*Math.abs(b[0]-a[0])/delka;
         const x7=x3-h*Math.abs(b[1]-a[1])/delka;
         const y7=y3-h*Math.abs(b[0]-a[0])/delka;
-        return <>
+        return <svg width="900" height="600">
             <line x1={a[0]-x4} y1={a[1]-y4} x2={b[0]+x4} y2={b[1]+y4} stroke="black" strokeWidth="2"/>
             <polygon 
                 points={[
@@ -24,10 +24,10 @@ function VratHranu([a,b],signaly){
                 stroke="black" fill="black" strokeWidth="2"
             />
             <text x={(a[0]+b[0])/2} y={(a[1]+b[1])/2} fill="red">{signaly}</text>
-        </>
+        </svg>
     }
     else{
-        return<>
+        return<svg width="900" height="600">
             <ellipse cx={a[0]} cy={a[1]-polomerVrcholu} rx={2*polomerVrcholu} ry={polomerVrcholu} stroke="black" stroke-width="2" fill="white"/>
             <polygon 
                 points={[
@@ -38,8 +38,7 @@ function VratHranu([a,b],signaly){
                 stroke= "black" strokeWidth="2" fill="black"
             />
             <text x={a[0]-polomerVrcholu} y={a[1]-2*polomerVrcholu} fill="red">{signaly}</text>
-        </>
+        </svg>
     }
-}
+};
 
-export default VratHranu
