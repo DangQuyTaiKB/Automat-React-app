@@ -17,7 +17,14 @@ class Automat extends Component{
     }
     VratVrcholy(p_listVrcholu){
         return p_listVrcholu.map((vrchol,index)=>{
+<<<<<<< HEAD
             return VratVrchol(vrchol,index);
+=======
+            return <> 
+                <circle cx= {vrchol[0]} cy={vrchol[1]} r="25" stroke="black" strokeWidth="2" fill="white"></circle>
+                <text x={vrchol[0]-5} y={vrchol[1]+5} fill="red">{index}</text>
+            </>
+>>>>>>> d4be189794c6438995e83abf739c792a33428a14
         });
     }
     VratHrany(p_listHran){
@@ -121,3 +128,7 @@ class Automat extends Component{
 }
 
 export default Automat;
+
+
+
+

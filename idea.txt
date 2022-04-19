@@ -1,3 +1,9 @@
 https://docs.google.com/document/d/1jyPcCqyJBUcQUuCWKe1bnesYFhwugjxBqhPK9178fMg/edit
 
 29/3: tôi mới add source code của cái bài kia
+
+12/4:
+Ý tưởng:
+1. dùng chuột:
+-Double click vào vị trị bất kì là vẽ được vòng trọn tạo điểm đấy
+-Nhấn giữ và di chuyển chuột thì vòng tròn sẽ di chuyển theo
