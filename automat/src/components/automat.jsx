@@ -7,12 +7,33 @@ class Automat extends Component{
     constructor(){
         super();
         this.state ={
+            listsVrcholu: 
+            [
+                //pozice 1 vrcholu
+                [[300,400]],
+                //pozice 2 vrcholu
+                [[300,400],[600,400]],
+                //pozice 3 vrcholu: rovnostrany trojuhelnik
+                [[300,400],[600,400],[450,140]],
+                //pozice 4 vrcholu: ctverec
+                [[300,400],[600,400],[600,100],[300,100]],
+                //pozice 5 vrcholu:
+                [[300,400],[600,400],[650,200],[450,50],[250,200]]
+            ],
             pocetVrcholu:5,
+            pocetZmenVrcholu:0,
             listInformaceHran: [],
-            listForm1 : []
+            pocetHran: 0
         };
-        this.HandleChange=this.HandleChange.bind(this);
-        this.HandleSubmit=this.HandleSubmit.bind(this);
+        this.HandleChangeHran=this.HandleChangeHran.bind(this);
+        this.HandleSubmitHran=this.HandleSubmitHran.bind(this);
+        this.HandleChangeVrchol= this.HandleChangeVrchol.bind(this);
+    }
+    VratPoziceVrcholu(){
+        let p_listVrcholu=this.state.listsVrcholu[this.state.pocetVrcholu-1];
+        return p_listVrcholu.map((vrchol,index)=>{
+            return <p>Vrchol {index}: [{vrchol[0]},{vrchol[1]}]</p>
+        });
     }
     VratVrcholy(p_listVrcholu){
         return p_listVrcholu.map((vrchol,index)=>{
@@ -24,30 +45,67 @@ class Automat extends Component{
             return VratHranu(infHrany[0],infHrany[1]);
         });
     }
-    VratForm(){
+    VratFormVrcholu(){
         return<>
-            <form onSubmit={this.HandleSubmit}>
+            <form >
+                <label>Vrchol:
+                    <input 
+                        type="text" 
+                        onChange={this.HandleChangeVrchol}
+                    />
+                </label>
+            </form> 
+        </>
+    }
+    VratFormHran(){
+        return<>
+            <form onSubmit={this.HandleSubmitHran}>
                 <label>Hrana:
                     <input 
-                            type="text" 
-                            onChange={this.HandleChange}
+                        type="text" 
+                        onChange={this.HandleChangeHran}
                     />
                 </label>
                 <input type="submit" value="Submit" className="btn btn-primary btn-sm"/>
             </form>                
         </>
     }
-    VratFormy(){
-        return this.state.listForm1.map(form=>{
-            return this.VratForm()
+    VratFormyHran(){
+        let formy=[];
+        for(let i=0;i<this.state.pocetHran;i++){
+            formy.push(1);
+        }
+        return formy.map(form=>{
+            return this.VratFormHran()
         });
     }
-    TvoritNovyForm(){
-        this.state.listForm1.push(1);
-        let newList=this.state.listForm1;
-        this.setState({listForm1: newList});
+    VratFormyVrcholu(){
+        let formy=[];
+        for(let i=0;i<this.state.pocetZmenVrcholu;i++){
+            formy.push(1);
+        }
+        return formy.map(form=>{
+            return this.VratFormVrcholu()
+        });
     }
-    HandleChange(e){
+    IncrePocetZmenVrcholu(){
+        this.setState({pocetZmenVrcholu: this.state.pocetZmenVrcholu+1})
+    }
+    IncrePocetHran(){
+        this.setState({pocetHran: this.state.pocetHran+1});
+    }
+    HandleChangeVrchol(e){
+        let index=(e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
+        let x=(e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
+        let y=(e.target.value.split(" ")[2]!=="")?Number(e.target.value.split(" ")[2]):-1;
+        if(index>=0 && x>=0 && y>=0 && index<this.state.pocetVrcholu && x<900 && y<600){
+            this.state.listsVrcholu[this.state.pocetVrcholu-1][index]=[x,y];
+            this.setState({
+                listsVrcholu: this.state.listsVrcholu
+            });
+        }
+    }
+    HandleChangeHran(e){
         //phai loai truong hop "" vi Number("") la 0
         let pocatecni= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
         let koncovy= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
@@ -58,7 +116,7 @@ class Automat extends Component{
             });
         }
     }
-    HandleSubmit(e){
+    HandleSubmitHran(e){
         alert(`Jedna hrana[${this.state.listInformaceHran[this.state.listInformaceHran.length-1]}] byla tvorena`);
         e.preventDefault();
     }
@@ -69,20 +127,9 @@ class Automat extends Component{
         if(this.state.pocetVrcholu<5) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
     }
     render(){
-        const listsVrcholu=[
-            //pozice 1 vrcholu
-            [[300,400]],
-            //pozice 2 vrcholu
-            [[300,400],[600,400]],
-            //pozice 3 vrcholu: rovnostrany trojuhelnik
-            [[300,400],[600,400],[450,140]],
-            //pozice 4 vrcholu: ctverec
-            [[300,400],[600,400],[600,100],[300,100]],
-            //pozice 5 vrcholu:
-            [[300,400],[600,400],[650,200],[450,50],[250,200]]
-        ];
+        
         //tao list pozi
-        let listVrcholu= listsVrcholu[this.state.pocetVrcholu-1];
+        let listVrcholu= this.state.listsVrcholu[this.state.pocetVrcholu-1];
         //phan tach dvojce bang split()
         //Number() de chuyen index thanh so
         //dua vao index do lay pozice bang listVrcholu
@@ -100,8 +147,13 @@ class Automat extends Component{
                         {this.state.pocetVrcholu} 
                         <button onClick ={()=> this.IncrePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
                     </p>
-                    {this.VratFormy()}
-                    <button onClick= {()=>this.TvoritNovyForm()} className="btn btn-primary btn-sm">Nova hrana</button>
+                    {this.VratPoziceVrcholu()}
+                    <p>Zmen pozice vrcholu. Vrozec: Index X Y</p>
+                    {this.VratFormyVrcholu()}
+                    <button onClick= {()=>this.IncrePocetZmenVrcholu()} className="btn btn-primary btn-sm">Zmenit pozice vrcholu</button>
+                    <p>Tvor novou hranu. Vrozec: pocatecni koncovy signaly</p>
+                    {this.VratFormyHran()}
+                    <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Nova hrana</button>
                 </div>
                 <div className="divRight">
                     <br/>
