@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './automat.css';
 import VratHranu from './hrana'
+import VratVrchol from'./vrchol'
 
 class Automat extends Component{
     constructor(){
@@ -8,23 +9,44 @@ class Automat extends Component{
         this.state ={
             pocetVrcholu:5,
             listDvojciIndexu: [],
-            listSignalu:["a","b","c"]
+            //listSignalu:["a","b","c"],
+            listForm1 : []
         };
         this.HandleChange=this.HandleChange.bind(this);
         this.HandleSubmit=this.HandleSubmit.bind(this);
     }
     VratVrcholy(p_listVrcholu){
         return p_listVrcholu.map((vrchol,index)=>{
-            return <> 
-                <circle cx= {vrchol[0]} cy={vrchol[1]} r="10" stroke="black" strokeWidth="2" fill="white"></circle>
-                <text x={vrchol[0]-5} y={vrchol[1]+5} fill="red">{index}</text>
-            </>
+            return VratVrchol(vrchol,index);
         });
     }
     VratHrany(p_listHran){
         return p_listHran.map(hrana =>{
             return VratHranu(hrana);
         });
+    }
+    VratForm(){
+        return<>
+            <form onSubmit={this.HandleSubmit}>
+                <label>Hrana:
+                    <input 
+                            type="text" 
+                            onChange={this.HandleChange}
+                    />
+                </label>
+                <input type="submit" value="Submit" className="btn btn-primary btn-sm"/>
+            </form>                
+        </>
+    }
+    VratFormy(){
+        return this.state.listForm1.map(form=>{
+            return this.VratForm()
+        });
+    }
+    TvoritNovyForm(){
+        this.state.listForm1.push(1);
+        let newList=this.state.listForm1;
+        this.setState({listForm1: newList});
     }
     HandleChange(e){
         //phai loai truong hop "" vi Number("") la 0
@@ -46,33 +68,6 @@ class Automat extends Component{
     }
     IncrePocetVrcholu(){
         if(this.state.pocetVrcholu<5) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
-    }
-    VratForm(){
-        return<>
-            <form onSubmit={this.HandleSubmit}>
-                <label>Hrana:
-                    <input 
-                            type="text" 
-                            onChange={this.HandleChange}
-                    />
-                </label>
-                {/* <input type="submit" value="Submit"/> */}
-            </form>                
-        </>
-    }
-    VratRadek(){
-        return <tr>
-                {this.state.listSignalu.map(signal=>{
-                    return <td>
-                        {this.VratForm()}
-                    </td>
-                })}
-        </tr>
-    }
-    VratRadky(){
-        return this.state.pocetVrcholu.map(vrchol=>{
-            return this.VratRadek();
-        });
     }
     render(){
         const listsVrcholu=[
@@ -108,26 +103,16 @@ class Automat extends Component{
                         {this.state.pocetVrcholu} 
                         <button onClick ={()=> this.IncrePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
                     </p>
-                    {this.VratForm()}
-                    {/* <table>
-                        <tr>
-                            <td></td>
-                            {this.state.listSignalu.map(
-                                signal=>{
-                                    return <th>{signal}</th>
-                                }
-                            )}
-                        </tr>
-                        {this.VratRadky()}
-                    </table> */}
+                    {this.VratFormy()}
+                    <button onClick= {()=>this.TvoritNovyForm()} className="btn btn-primary btn-sm">Nova hrana</button>
                 </div>
                 <div className="divRight">
                     <br/>
                     <br/>
                     <svg width="900" height="600">
                         <polyline points="0,0 900,0 900,600 0,600 0,0" fill= "white" stroke="black" strokeWidth="10"/>
-                        {this.VratVrcholy(listVrcholu)}
                         {this.VratHrany(listHran)}
+                        {this.VratVrcholy(listVrcholu)}
                     </svg>
                 </div>
             </div>
