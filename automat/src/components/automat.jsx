@@ -126,7 +126,7 @@ class Automat extends Component{
         if(this.state.pocetVrcholu>1) this.setState({pocetVrcholu: this.state.pocetVrcholu-1});
     }
     IncrePocetVrcholu(){
-        if(this.state.pocetVrcholu<10) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
+        if(this.state.pocetVrcholu<6) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
     }
     render(){
         
@@ -153,11 +153,13 @@ class Automat extends Component{
                             <button onClick ={()=> this.IncrePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
                         </p>
                         {this.VratPoziceVrcholu()}
-                        <p>Zmena pozice vrcholu. Vrozec: Index X Y</p>
+                        <b>Zmena pozice vrcholu.</b>
+                        <p> Vrozec: Index X Y</p>
                         {this.VratFormyVrcholu()}
                         <button onClick= {()=>this.IncrePocetZmenVrcholu()} className="btn btn-primary btn-sm">Zmen pozice vrcholu</button>
-                        
-                        <p>Tvoreni nove hrany. Vrozec: pocatecni koncovy signaly</p>
+                        <br/>
+                        <b>Tvoreni nove hrany.</b>
+                        <p>Vrozec: pocatecni koncovy signaly</p>
                         {this.VratFormyHran()}
                         <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Tvor novou hranu</button>
                     </div>
