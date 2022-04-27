@@ -32,7 +32,7 @@ class Automat extends Component{
     VratPoziceVrcholu(){
         let p_listVrcholu=this.state.listsVrcholu[this.state.pocetVrcholu-1];
         return p_listVrcholu.map((vrchol,index)=>{
-            return <p>Vrchol {index}: [{vrchol[0]},{vrchol[1]}]</p>
+            return <pre>       Vrchol {index}: [{vrchol[0]},{vrchol[1]}]</pre>
         });
     }
     VratVrcholy(p_listVrcholu){
@@ -140,8 +140,7 @@ class Automat extends Component{
         return(
             <>
                 <div className="container-fluid p-2 bg-primary text-white">
-                    <h1>My Automat Graph Editor</h1>
-                    <p>This page is about automat.</p>
+                    <h1 className="text-center">My Automat Graph Editor</h1>
                 </div>
                 <div className="divLeft">
                     <pre>                                                        </pre>
@@ -151,12 +150,13 @@ class Automat extends Component{
                         <button onClick ={()=> this.IncrePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
                     </p>
                     {this.VratPoziceVrcholu()}
-                    <p>Zmen pozice vrcholu. Vrozec: Index X Y</p>
+                    <p>Zmena pozice vrcholu. Vrozec: Index X Y</p>
                     {this.VratFormyVrcholu()}
-                    <button onClick= {()=>this.IncrePocetZmenVrcholu()} className="btn btn-primary btn-sm">Zmenit pozice vrcholu</button>
-                    <p>Tvor novou hranu. Vrozec: pocatecni koncovy signaly</p>
+                    <button onClick= {()=>this.IncrePocetZmenVrcholu()} className="btn btn-primary btn-sm">Zmen pozice vrcholu</button>
+                    
+                    <p>Tvoreni nove hrany. Vrozec: pocatecni koncovy signaly</p>
                     {this.VratFormyHran()}
-                    <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Tvorit novou hranu</button>
+                    <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Tvor novou hranu</button>
                 </div>
                 <div className="divRight">
                     <br/>
