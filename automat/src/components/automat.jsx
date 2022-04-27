@@ -98,7 +98,7 @@ class Automat extends Component{
         let index=(e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
         let x=(e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
         let y=(e.target.value.split(" ")[2]!=="")?Number(e.target.value.split(" ")[2]):-1;
-        if(index>=0 && x>=0 && y>=0 && index<this.state.pocetVrcholu && x<900 && y<600){
+        if(index>=0 && x>=0 && y>=0 && index<this.state.pocetVrcholu && x<900 && y<500){
             this.state.listsVrcholu[this.state.pocetVrcholu-1][index]=[x,y];
             this.setState({
                 listsVrcholu: this.state.listsVrcholu
@@ -138,10 +138,13 @@ class Automat extends Component{
             [[listVrcholu[Number(inf.split(" ")[0])],listVrcholu[Number(inf.split(" ")[1])]], inf.split(" ")[2]]
         );
         return(
-            <div>
+            <>
+                <div className="container-fluid p-2 bg-primary text-white">
+                    <h1>My Automat Graph Editor</h1>
+                    <p>This page is about automat.</p>
+                </div>
                 <div className="divLeft">
-                    <h1>Hello user!</h1>
-                    <pre>                                                                         </pre>
+                    <pre>                                                        </pre>
                     <p>Pocet vrcholu:
                         <button onClick= {()=>this.DecrePocetVrcholu()} className="btn btn-primary btn-sm">-</button> 
                         {this.state.pocetVrcholu} 
@@ -153,18 +156,18 @@ class Automat extends Component{
                     <button onClick= {()=>this.IncrePocetZmenVrcholu()} className="btn btn-primary btn-sm">Zmenit pozice vrcholu</button>
                     <p>Tvor novou hranu. Vrozec: pocatecni koncovy signaly</p>
                     {this.VratFormyHran()}
-                    <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Nova hrana</button>
+                    <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Tvorit novou hranu</button>
                 </div>
                 <div className="divRight">
                     <br/>
                     <br/>
-                    <svg width="900" height="600">
-                        <polyline points="0,0 900,0 900,600 0,600 0,0" fill= "white" stroke="black" strokeWidth="10"/>
+                    <svg width="900" height="500">
+                        <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
                         {this.VratHrany(listHran)}
                         {this.VratVrcholy(listVrcholu)}
                     </svg>
                 </div>
-            </div>
+            </>
         );
     }
 }
