@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './automat.css';
+
 import VratHranu from './hrana'
 import VratVrchol from'./vrchol'
 
@@ -18,9 +18,11 @@ class Automat extends Component{
                 //pozice 4 vrcholu: ctverec
                 [[300,400],[600,400],[600,100],[300,100]],
                 //pozice 5 vrcholu:
-                [[300,400],[600,400],[650,200],[450,50],[250,200]]
+                [[300,400],[600,400],[650,200],[450,50],[250,200]],
+                //pozice 5 vrcholu:
+                [[300,400],[600,400],[700,250],[600,100],[300,100],[200,250]]
             ],
-            pocetVrcholu:5,
+            pocetVrcholu:4,
             pocetZmenVrcholu:0,
             listInformaceHran: [],
             pocetHran: 0
@@ -124,7 +126,7 @@ class Automat extends Component{
         if(this.state.pocetVrcholu>1) this.setState({pocetVrcholu: this.state.pocetVrcholu-1});
     }
     IncrePocetVrcholu(){
-        if(this.state.pocetVrcholu<5) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
+        if(this.state.pocetVrcholu<10) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
     }
     render(){
         
@@ -142,29 +144,31 @@ class Automat extends Component{
                 <div className="container-fluid p-2 bg-primary text-white">
                     <h1 className="text-center">My Automat Graph Editor</h1>
                 </div>
-                <div className="divLeft">
-                    <pre>                                                        </pre>
-                    <p>Pocet vrcholu:
-                        <button onClick= {()=>this.DecrePocetVrcholu()} className="btn btn-primary btn-sm">-</button> 
-                        {this.state.pocetVrcholu} 
-                        <button onClick ={()=> this.IncrePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
-                    </p>
-                    {this.VratPoziceVrcholu()}
-                    <p>Zmena pozice vrcholu. Vrozec: Index X Y</p>
-                    {this.VratFormyVrcholu()}
-                    <button onClick= {()=>this.IncrePocetZmenVrcholu()} className="btn btn-primary btn-sm">Zmen pozice vrcholu</button>
-                    
-                    <p>Tvoreni nove hrany. Vrozec: pocatecni koncovy signaly</p>
-                    {this.VratFormyHran()}
-                    <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Tvor novou hranu</button>
-                </div>
-                <div className="divRight">
-                    <br/>
-                    <svg width="900" height="500">
-                        <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
-                        {this.VratHrany(listHran)}
-                        {this.VratVrcholy(listVrcholu)}
-                    </svg>
+                <div className ="row">
+                    <div className="col">
+                        <pre>                                                        </pre>
+                        <p>Pocet vrcholu:
+                            <button onClick= {()=>this.DecrePocetVrcholu()} className="btn btn-primary btn-sm">-</button> 
+                            {this.state.pocetVrcholu} 
+                            <button onClick ={()=> this.IncrePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
+                        </p>
+                        {this.VratPoziceVrcholu()}
+                        <p>Zmena pozice vrcholu. Vrozec: Index X Y</p>
+                        {this.VratFormyVrcholu()}
+                        <button onClick= {()=>this.IncrePocetZmenVrcholu()} className="btn btn-primary btn-sm">Zmen pozice vrcholu</button>
+                        
+                        <p>Tvoreni nove hrany. Vrozec: pocatecni koncovy signaly</p>
+                        {this.VratFormyHran()}
+                        <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Tvor novou hranu</button>
+                    </div>
+                    <div className="col">
+                        <br/>
+                        <svg width="900" height="500">
+                            <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
+                            {this.VratHrany(listHran)}
+                            {this.VratVrcholy(listVrcholu)}
+                        </svg>
+                    </div>
                 </div>
             </>
         );
