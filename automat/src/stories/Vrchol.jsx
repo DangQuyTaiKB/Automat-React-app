@@ -1,8 +1,27 @@
 export const Vrchol =({position,index}) =>{
     const polomerVrcholu= 20;
-    return <svg width="900" height="600"> 
-        <circle cx= {position[0]} cy={position[1]} r={polomerVrcholu} stroke="black" strokeWidth="2" fill="white"></circle>
-        <text x={position[0]-5} y={position[1]+5} fill="red">{index}</text>
-    </svg>
+    const h=10;
+    if(index===0){
+        return <svg width="900" height="600"> 
+            <line x1={position[0]-3*polomerVrcholu} y1={position[1]} x2={position[0]-polomerVrcholu} y2={position[1]} stroke="black" strokeWidth="2"/>
+            <polygon 
+                points={[
+                    [position[0]-polomerVrcholu,position[1]],
+                    [position[0]-polomerVrcholu-h,position[1]+h],
+                    [position[0]-polomerVrcholu-h,position[1]-h]
+                ]}
+                stroke="black" fill="black" strokeWidth="2"
+            />
+            <circle cx= {position[0]} cy={position[1]} r={polomerVrcholu} stroke="black" strokeWidth="2" fill="white"></circle>
+            <circle cx= {position[0]} cy={position[1]} r={polomerVrcholu-5} stroke="black" strokeWidth="2" fill="white"></circle>
+            <text x={position[0]-5} y={position[1]+5} fill="red">{index}</text>
+        </svg>
+    }
+    else{
+        return <svg width="900" height="600"> 
+            <circle cx= {position[0]} cy={position[1]} r={polomerVrcholu} stroke="black" strokeWidth="2" fill="white"></circle>
+            <text x={position[0]-5} y={position[1]+5} fill="red">{index}</text>
+        </svg>
+    }
 };
 

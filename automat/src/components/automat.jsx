@@ -160,7 +160,6 @@ class Automat extends Component{
                 </div>
                 <div className="divRight">
                     <br/>
-                    <br/>
                     <svg width="900" height="500">
                         <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
                         {this.VratHrany(listHran)}

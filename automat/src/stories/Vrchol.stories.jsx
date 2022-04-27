@@ -18,5 +18,11 @@ export const Normal = Template.bind({});
 
 Normal.args={
     position: [200,100],
-    index: 0
+    index: 1
 };
+
+export const StartState =Template.bind({});
+StartState.args={
+    position: [200,100],
+    index: 0
+}
