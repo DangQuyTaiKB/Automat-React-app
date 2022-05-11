@@ -7,6 +7,7 @@ class Automat extends Component{
     constructor(){
         super();
         this.state ={
+            //listy incialnich pozici vrcholu
             listsVrcholu: 
             [
                 //pozice 1 vrcholu
@@ -19,7 +20,7 @@ class Automat extends Component{
                 [[300,400],[600,400],[600,100],[300,100]],
                 //pozice 5 vrcholu:
                 [[300,400],[600,400],[650,200],[450,50],[250,200]],
-                //pozice 5 vrcholu:
+                //pozice 6 vrcholu:
                 [[300,400],[600,400],[700,250],[600,100],[300,100],[200,250]]
             ],
             pocetVrcholu:4,
@@ -31,23 +32,44 @@ class Automat extends Component{
         this.HandleSubmitHran=this.HandleSubmitHran.bind(this);
         this.HandleChangeVrchol= this.HandleChangeVrchol.bind(this);
     }
-    VratPoziceVrcholu(){
-        let p_listVrcholu=this.state.listsVrcholu[this.state.pocetVrcholu-1];
+    DecrePocetVrcholu(){
+        if(this.state.pocetVrcholu>1) this.setState({pocetVrcholu: this.state.pocetVrcholu-1});
+    }
+    IncrePocetVrcholu(){
+        if(this.state.pocetVrcholu<6) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
+    }
+    VratPoziceVrcholu(p_listVrcholu){
+        /*
+            Todo: Vratit list pozice vrcholu ve kartach <pre>
+            Args: List pozice vrcholu
+        */
         return p_listVrcholu.map((vrchol,index)=>{
             return <pre>       Vrchol {index}: [{vrchol[0]},{vrchol[1]}]</pre>
         });
     }
     VratVrcholy(p_listVrcholu){
+        /*
+            Todo: Vratit list vrcholu ve tvaru - funkcni komponent VratVrchol
+            Args: List pozice vrcholu
+        */
         return p_listVrcholu.map((vrchol,index)=>{
             return VratVrchol(vrchol,index);
         });
     }
     VratHrany(p_listHran){
+        /*
+            Todo: Vratit list hran ve tvaru - funkcni komponent VratHranu
+            Args: List hran, tj list trojice pozice pocatecniho, pozice koncoveho a hranovy signal
+        */
         return p_listHran.map(infHrany =>{
             return VratHranu(infHrany[0],infHrany[1]);
         });
     }
     VratFormVrcholu(){
+        /*
+            Todo: Vratit form ukolem je zmenit pozice vrcholu
+            Args: No
+        */
         return<>
             <form >
                 <label>Vrchol:
@@ -59,7 +81,32 @@ class Automat extends Component{
             </form> 
         </>
     }
+    VratFormyVrcholu(){
+        /*
+           Todo: Vratit form ukolem je zmenit pozice vrcholu, pocet formu je roven pocetZmenVrcholu
+           Args: No
+       */
+       let formy=[];
+       for(let i=0;i<this.state.pocetZmenVrcholu;i++){
+           formy.push(1);
+       }
+       return formy.map(form=>{
+           return this.VratFormVrcholu()
+       });
+   }
+    IncrePocetZmenVrcholu(){
+    /*
+        Todo: Zvysit promennou pocetZmenVrcholu o 1, aby se pocet formu (ukolem je zmenit pozice vrcholu ) zvysil
+        Args: No
+    */
+        this.setState({pocetZmenVrcholu: this.state.pocetZmenVrcholu+1})
+    }
+
     VratFormHran(){
+         /*
+            Todo: Vratit form ukolem je tvorit novou hranu
+            Args: No
+        */
         return<>
             <form onSubmit={this.HandleSubmitHran}>
                 <label>Hrana:
@@ -73,6 +120,10 @@ class Automat extends Component{
         </>
     }
     VratFormyHran(){
+         /*
+            Todo: Vratit formy ukolem je tvorit novou hranu, pocet formu je roven pocetHran
+            Args: No
+        */
         let formy=[];
         for(let i=0;i<this.state.pocetHran;i++){
             formy.push(1);
@@ -81,26 +132,22 @@ class Automat extends Component{
             return this.VratFormHran()
         });
     }
-    VratFormyVrcholu(){
-        let formy=[];
-        for(let i=0;i<this.state.pocetZmenVrcholu;i++){
-            formy.push(1);
-        }
-        return formy.map(form=>{
-            return this.VratFormVrcholu()
-        });
-    }
-    IncrePocetZmenVrcholu(){
-        this.setState({pocetZmenVrcholu: this.state.pocetZmenVrcholu+1})
-    }
     IncrePocetHran(){
+        /*
+            Todo: Zvysit promennou pocetHran o 1, aby se pocet formu (ukolem je zmenit pozice vrcholu ) zvysil
+            Args: No
+        */
         this.setState({pocetHran: this.state.pocetHran+1});
     }
+
     HandleChangeVrchol(e){
+        //index vrcholu
         let index=(e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
+        //pozice vrcholu
         let x=(e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
         let y=(e.target.value.split(" ")[2]!=="")?Number(e.target.value.split(" ")[2]):-1;
         if(index>=0 && x>=0 && y>=0 && index<this.state.pocetVrcholu && x<900 && y<500){
+            // Replace tento pozice
             this.state.listsVrcholu[this.state.pocetVrcholu-1][index]=[x,y];
             this.setState({
                 listsVrcholu: this.state.listsVrcholu
@@ -112,6 +159,7 @@ class Automat extends Component{
         let pocatecni= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
         let koncovy= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
         if(pocatecni>=0&&koncovy>=0&&pocatecni<this.state.pocetVrcholu&&koncovy<this.state.pocetVrcholu){
+            //Push inf Nove hrany do listInformaceHran
             this.state.listInformaceHran.push(e.target.value);
             this.setState({
                 listInformaceHran:this.state.listInformaceHran
@@ -122,20 +170,11 @@ class Automat extends Component{
         alert(`Jedna hrana[${this.state.listInformaceHran[this.state.listInformaceHran.length-1]}] byla tvorena`);
         e.preventDefault();
     }
-    DecrePocetVrcholu(){
-        if(this.state.pocetVrcholu>1) this.setState({pocetVrcholu: this.state.pocetVrcholu-1});
-    }
-    IncrePocetVrcholu(){
-        if(this.state.pocetVrcholu<6) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
-    }
+    
     render(){
-        
-        //tao list pozi
+        //Get list pozice vrcholu podle zvolene promenne pocetVrcholu
         let listVrcholu= this.state.listsVrcholu[this.state.pocetVrcholu-1];
-        //phan tach dvojce bang split()
-        //Number() de chuyen index thanh so
-        //dua vao index do lay pozice bang listVrcholu
-        //map vao tao ra listHran
+        //Get list hran od listInformaceHran
         let listHran= this.state.listInformaceHran.map(inf=>
             [[listVrcholu[Number(inf.split(" ")[0])],listVrcholu[Number(inf.split(" ")[1])]], inf.split(" ")[2]]
         );
@@ -146,13 +185,13 @@ class Automat extends Component{
                 </div>
                 <div className ="row">
                     <div className="col">
-                        <pre>                                                        </pre>
+                        <br/>
                         <p>Pocet vrcholu:
                             <button onClick= {()=>this.DecrePocetVrcholu()} className="btn btn-primary btn-sm">-</button> 
                             {this.state.pocetVrcholu} 
                             <button onClick ={()=> this.IncrePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
                         </p>
-                        {this.VratPoziceVrcholu()}
+                        {this.VratPoziceVrcholu(listVrcholu)}
                         <b>Zmena pozice vrcholu.</b>
                         <p> Vrozec: Index X Y</p>
                         {this.VratFormyVrcholu()}
