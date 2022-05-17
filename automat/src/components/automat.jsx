@@ -3,12 +3,30 @@ import React, {useState} from 'react';
 import VratHranu from './hrana'
 import VratVrchol from'./vrchol'
 
+// samostane komponentu tady
+const SingleVrchol = (props) => <pre>Vrchol {props.index}: [{props.x}, {props.y}]</pre>;
+
+const VratPoziceVrcholu=({p_listVrcholu})=>{
+    /*
+        Todo: Vratit list pozice vrcholu ve kartach <pre>
+        Args: List pozice vrcholu
+    */
+    return (<>
+        //{p_listVrcholu.map((vrchol,index)=> (<pre key={index}>       Vrchol {index}: [{vrchol.x},{vrchol.y}]</pre>)) }
+        {p_listVrcholu.map((vrchol,index)=> (<SingleVrchol index={index} {...vrchol} />)) }
+        </>);
+}
+//// <VratPoziceVrcholu p_listVrcholu={[]}/>
+
 function Automat(){
             //listy incialnich pozici vrcholu
     const [listsVrcholu, setListsVrcholu]= useState( 
             [
                 //pozice 1 vrcholu
-                [[300,400]],
+                [[300,400]], //[{x: 300, y: 400}]
+                // dictionary tady 
+
+
                 //pozice 2 vrcholu
                 [[300,400],[600,400]],
                 //pozice 3 vrcholu: rovnostrany trojuhelnik
@@ -36,6 +54,8 @@ function Automat(){
             setPocetVrcholu(pocetVrcholu-1);
         }
     }
+
+    // samostane komponentu tady
     const VratPoziceVrcholu=(p_listVrcholu)=>{
         /*
             Todo: Vratit list pozice vrcholu ve kartach <pre>
@@ -45,6 +65,8 @@ function Automat(){
             return <pre>       Vrchol {index}: [{vrchol[0]},{vrchol[1]}]</pre>
         });
     }
+
+
     const VratVrcholy=(p_listVrcholu)=>{
         /*
             Todo: Vratit list vrcholu ve tvaru - funkcni komponent VratVrchol
