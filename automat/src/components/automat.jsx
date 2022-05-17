@@ -1,14 +1,11 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
 import VratHranu from './hrana'
 import VratVrchol from'./vrchol'
 
-class Automat extends Component{
-    constructor(){
-        super();
-        this.state ={
+function Automat(){
             //listy incialnich pozici vrcholu
-            listsVrcholu: 
+    const [listsVrcholu, setListsVrcholu]= useState( 
             [
                 //pozice 1 vrcholu
                 [[300,400]],
@@ -22,23 +19,24 @@ class Automat extends Component{
                 [[300,400],[600,400],[650,200],[450,50],[250,200]],
                 //pozice 6 vrcholu:
                 [[300,400],[600,400],[700,250],[600,100],[300,100],[200,250]]
-            ],
-            pocetVrcholu:4,
-            pocetZmenVrcholu:0,
-            listInformaceHran: [],
-            pocetHran: 0
-        };
-        this.HandleChangeHran=this.HandleChangeHran.bind(this);
-        this.HandleSubmitHran=this.HandleSubmitHran.bind(this);
-        this.HandleChangeVrchol= this.HandleChangeVrchol.bind(this);
+            ]
+    );
+    const [pocetVrcholu, setPocetVrcholu]= useState(4);
+    const [pocetZmenVrcholu, setPocetZmenVrcholu]= useState(1);
+    const [listInformaceHran, setListInformaceHran]= useState([]);
+    const [pocetHran, setPocetHran]= useState(1);
+    
+    const IncreasePocetVrcholu=()=>{
+        if(pocetVrcholu<6){
+            setPocetVrcholu(pocetVrcholu+1);
+        }
     }
-    DecrePocetVrcholu(){
-        if(this.state.pocetVrcholu>1) this.setState({pocetVrcholu: this.state.pocetVrcholu-1});
+    const DecreasePocetVrcholu=()=>{
+        if(pocetVrcholu>1){
+            setPocetVrcholu(pocetVrcholu-1);
+        }
     }
-    IncrePocetVrcholu(){
-        if(this.state.pocetVrcholu<6) this.setState({pocetVrcholu: this.state.pocetVrcholu+1});
-    }
-    VratPoziceVrcholu(p_listVrcholu){
+    const VratPoziceVrcholu=(p_listVrcholu)=>{
         /*
             Todo: Vratit list pozice vrcholu ve kartach <pre>
             Args: List pozice vrcholu
@@ -47,7 +45,7 @@ class Automat extends Component{
             return <pre>       Vrchol {index}: [{vrchol[0]},{vrchol[1]}]</pre>
         });
     }
-    VratVrcholy(p_listVrcholu){
+    const VratVrcholy=(p_listVrcholu)=>{
         /*
             Todo: Vratit list vrcholu ve tvaru - funkcni komponent VratVrchol
             Args: List pozice vrcholu
@@ -56,7 +54,7 @@ class Automat extends Component{
             return VratVrchol(vrchol,index);
         });
     }
-    VratHrany(p_listHran){
+    const VratHrany=(p_listHran)=>{
         /*
             Todo: Vratit list hran ve tvaru - funkcni komponent VratHranu
             Args: List hran, tj list trojice pozice pocatecniho, pozice koncoveho a hranovy signal
@@ -65,7 +63,7 @@ class Automat extends Component{
             return VratHranu(infHrany[0],infHrany[1]);
         });
     }
-    VratFormVrcholu(){
+    const VratFormVrcholu=()=>{
         /*
             Todo: Vratit form ukolem je zmenit pozice vrcholu
             Args: No
@@ -75,145 +73,121 @@ class Automat extends Component{
                 <label>Vrchol:
                     <input 
                         type="text" 
-                        onChange={this.HandleChangeVrchol}
+                        onChange={HandleChangeVrchol}
                     />
                 </label>
             </form> 
         </>
     }
-    VratFormyVrcholu(){
+    const VratFormyVrcholu=()=>{
         /*
-           Todo: Vratit form ukolem je zmenit pozice vrcholu, pocet formu je roven pocetZmenVrcholu
+           Todo: Vratit formy ukolem je zmenit pozice vrcholu, pocet formu je roven pocetZmenVrcholu
            Args: No
        */
        let formy=[];
-       for(let i=0;i<this.state.pocetZmenVrcholu;i++){
+       for(let i=0;i<pocetZmenVrcholu;i++){
            formy.push(1);
        }
        return formy.map(form=>{
-           return this.VratFormVrcholu()
+           return VratFormVrcholu()
        });
    }
-    IncrePocetZmenVrcholu(){
-    /*
-        Todo: Zvysit promennou pocetZmenVrcholu o 1, aby se pocet formu (ukolem je zmenit pozice vrcholu ) zvysil
-        Args: No
-    */
-        this.setState({pocetZmenVrcholu: this.state.pocetZmenVrcholu+1})
-    }
-
-    VratFormHran(){
+    const VratFormHran=()=>{
          /*
             Todo: Vratit form ukolem je tvorit novou hranu
             Args: No
         */
         return<>
-            <form onSubmit={this.HandleSubmitHran}>
+            <form>
                 <label>Hrana:
                     <input 
                         type="text" 
-                        onChange={this.HandleChangeHran}
+                        onChange={HandleChangeHran}
                     />
                 </label>
-                <input type="submit" value="Submit" className="btn btn-primary btn-sm"/>
             </form>                
         </>
     }
-    VratFormyHran(){
+    const VratFormyHran=()=>{
          /*
             Todo: Vratit formy ukolem je tvorit novou hranu, pocet formu je roven pocetHran
             Args: No
         */
         let formy=[];
-        for(let i=0;i<this.state.pocetHran;i++){
+        for(let i=0;i<pocetHran;i++){
             formy.push(1);
         }
         return formy.map(form=>{
-            return this.VratFormHran()
+            return VratFormHran()
         });
     }
-    IncrePocetHran(){
-        /*
-            Todo: Zvysit promennou pocetHran o 1, aby se pocet formu (ukolem je zmenit pozice vrcholu ) zvysil
-            Args: No
-        */
-        this.setState({pocetHran: this.state.pocetHran+1});
-    }
 
-    HandleChangeVrchol(e){
+    const HandleChangeVrchol=(e)=>{
         //index vrcholu
         let index=(e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
         //pozice vrcholu
         let x=(e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
         let y=(e.target.value.split(" ")[2]!=="")?Number(e.target.value.split(" ")[2]):-1;
-        if(index>=0 && x>=0 && y>=0 && index<this.state.pocetVrcholu && x<900 && y<500){
+        if(index>=0 && x>=0 && y>=0 && index<pocetVrcholu && x<900 && y<500){
             // Replace tento pozice
-            this.state.listsVrcholu[this.state.pocetVrcholu-1][index]=[x,y];
-            this.setState({
-                listsVrcholu: this.state.listsVrcholu
-            });
+            listsVrcholu[pocetVrcholu-1][index]=[x,y];
+            setListsVrcholu(listsVrcholu);
+            console.log('%d %d %d',index,x,y);
         }
     }
-    HandleChangeHran(e){
+    const HandleChangeHran=(e)=>{
         //phai loai truong hop "" vi Number("") la 0
         let pocatecni= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
         let koncovy= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
-        if(pocatecni>=0&&koncovy>=0&&pocatecni<this.state.pocetVrcholu&&koncovy<this.state.pocetVrcholu){
+        if(pocatecni>=0&&koncovy>=0&&pocatecni<pocetVrcholu&&koncovy<pocetVrcholu){
             //Push inf Nove hrany do listInformaceHran
-            this.state.listInformaceHran.push(e.target.value);
-            this.setState({
-                listInformaceHran:this.state.listInformaceHran
-            });
+            listInformaceHran.push(e.target.value);
+            setListInformaceHran(listInformaceHran);
         }
     }
-    HandleSubmitHran(e){
-        alert(`Jedna hrana[${this.state.listInformaceHran[this.state.listInformaceHran.length-1]}] byla tvorena`);
-        e.preventDefault();
-    }
-    
-    render(){
-        //Get list pozice vrcholu podle zvolene promenne pocetVrcholu
-        let listVrcholu= this.state.listsVrcholu[this.state.pocetVrcholu-1];
-        //Get list hran od listInformaceHran
-        let listHran= this.state.listInformaceHran.map(inf=>
+
+    //Get list pozice vrcholu podle zvolene promenne pocetVrcholu
+    let listVrcholu=listsVrcholu[pocetVrcholu-1];
+    //Get list hran od listInformaceHran
+    let listHran= listInformaceHran.map(inf=>
             [[listVrcholu[Number(inf.split(" ")[0])],listVrcholu[Number(inf.split(" ")[1])]], inf.split(" ")[2]]
-        );
-        return(
-            <>
-                <div className="container-fluid p-2 bg-primary text-white">
-                    <h1 className="text-center">My Automat Graph Editor</h1>
+    );
+
+    return(
+        <>
+            <div className="container-fluid p-2 bg-primary text-white">
+                <h1 className="text-center">My Automat Graph Editor</h1>
+            </div>
+            <div className ="row">
+                <div className="col">
+                    <br/>
+                    <p>Pocet vrcholu:
+                        <button onClick= {()=>DecreasePocetVrcholu()} className="btn btn-primary btn-sm">-</button> 
+                        {pocetVrcholu} 
+                        <button onClick ={()=> IncreasePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
+                    </p>
+                    {VratPoziceVrcholu(listVrcholu)}
+                    <b>Zmena pozice vrcholu.</b>
+                    <p> Vrozec: Index X Y</p>
+                    {VratFormyVrcholu()}
+                    <button onClick= {()=> setPocetZmenVrcholu(pocetZmenVrcholu+1)} className="btn btn-primary btn-sm">Zmen pozice vrcholu</button>
+                    <br/>
+                    <b>Tvoreni nove hrany.</b>
+                    <p>Vrozec: pocatecni koncovy signaly</p>
+                    {VratFormyHran()}
+                    <button onClick= {()=>setPocetHran(pocetHran+1)} className="btn btn-primary btn-sm">Tvor novou hranu</button>
                 </div>
-                <div className ="row">
-                    <div className="col">
-                        <br/>
-                        <p>Pocet vrcholu:
-                            <button onClick= {()=>this.DecrePocetVrcholu()} className="btn btn-primary btn-sm">-</button> 
-                            {this.state.pocetVrcholu} 
-                            <button onClick ={()=> this.IncrePocetVrcholu()} className="btn btn-primary btn-sm">+</button>
-                        </p>
-                        {this.VratPoziceVrcholu(listVrcholu)}
-                        <b>Zmena pozice vrcholu.</b>
-                        <p> Vrozec: Index X Y</p>
-                        {this.VratFormyVrcholu()}
-                        <button onClick= {()=>this.IncrePocetZmenVrcholu()} className="btn btn-primary btn-sm">Zmen pozice vrcholu</button>
-                        <br/>
-                        <b>Tvoreni nove hrany.</b>
-                        <p>Vrozec: pocatecni koncovy signaly</p>
-                        {this.VratFormyHran()}
-                        <button onClick= {()=>this.IncrePocetHran()} className="btn btn-primary btn-sm">Tvor novou hranu</button>
-                    </div>
-                    <div className="col">
-                        <br/>
-                        <svg width="900" height="500">
-                            <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
-                            {this.VratHrany(listHran)}
-                            {this.VratVrcholy(listVrcholu)}
-                        </svg>
-                    </div>
+                <div className="col">
+                    <br/>
+                    <svg width="900" height="500">
+                        <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
+                        {VratHrany(listHran)}
+                        {VratVrcholy(listVrcholu)}
+                    </svg>
                 </div>
-            </>
-        );
-    }
+            </div>
+        </>
+    );
 }
 
 export default Automat;
