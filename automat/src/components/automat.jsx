@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import VratHranu from './hrana'
 import VratVrchol from'./vrchol'
 
+
+
 class Automat extends Component{
     constructor(){
         super();
