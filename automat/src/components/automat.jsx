@@ -6,77 +6,83 @@ import HandlePoints from './handlingOfPoints'
 import HandleEdges from './handlingOfEdges'
 
 function Automat(){
-            //listy incialnich pozici vrcholu
-    const [pointData, setPointData]= useState( 
-            [
-                //pozice 1 vrcholu
-                [{x: 300, y: 400}], //[{x: 300, y: 400}]
-                //pozice 2 vrcholu
-                [{x: 300, y: 400},{x: 600, y: 400}],
-                //pozice 3 vrcholu: rovnostrany trojuhelnik
-                [{x: 300, y: 400},{x: 600, y: 400},{x: 450, y: 140}],
-                //pozice 4 vrcholu: ctverec
-                [{x: 300, y: 400},{x: 600, y: 400},{x: 600, y: 100},{x: 300, y: 100}],
-                //pozice 5 vrcholu:
-                [{x: 300, y: 400},{x: 600, y: 400},{x: 650, y: 200},{x: 450, y: 50},{x: 250, y: 200}],
-                //pozice 6 vrcholu:
-                [{x: 300, y: 400},{x: 600, y: 400},{x: 700, y: 250},{x: 600, y: 100},{x: 300, y: 100},{x: 200, y: 250}]
-            ]
-    );
-    const [numberOfPoints, setNumberOfPoints]= useState(4);
-    const [listOfEdgeInf, setListOfEdgeInf]= useState([]);
-    const [numberOfEdges, setNumberOfEdges]= useState(1);
-    const [numberOfChange, setnumberOfChange]= useState(1);
+    const originalGraph={
+        'points':[
+            {'id':0,'x':300,'y':400, 'state':'A'},
+            {'id':1,'x':600,'y':400, 'state':'B'},
+            {'id':2,'x':600,'y':100, 'state':'C'},
+            {'id':3,'x':300,'y':100, 'state':'D'},
+        ],
+        'dataOfEdges':[
+            {'startId':0,'endId':1,'signaly':'a'},
+            {'startId':1,'endId':2,'signaly':'b'}
+        ]
+    };
+    const [graph,setGraph]=useState(originalGraph);
     
-    const HandlePointChange=(event)=>{
-        //index vrcholu 
-        let index=(event.target.value.split(" ")[0]!=="")?Number(event.target.value.split(" ")[0]):-1;
-        //pozice vrcholu
-        let px=(event.target.value.split(" ")[1]!=="")?Number(event.target.value.split(" ")[1]):-1;
-        let py=(event.target.value.split(" ")[2]!=="")?Number(event.target.value.split(" ")[2]):-1;
-        if(index>=0 && px>=0 && py>=0 && index<numberOfPoints && px<900 && py<500){
-            // Replace tento pozice
-            pointData[numberOfPoints-1][index]={x:px,y:py};
-            setPointData(pointData);
+    const OnRemovePoint= (removedId)=>{
+        const newGraph={
+            'points': graph.points.filter(point=>(point.id!==removedId)),
+            'dataOfEdges': graph.dataOfEdges.filter(dataOfEdge=>((dataOfEdge.startId!==removedId)&&(dataOfEdge.endId!==removedId)))
         }
+        setGraph(newGraph);
     }
-    const HandleEdgeChange=(e)=>{
-        //phai loai truong hop "" vi Number("") la 0
-        let startPointIndex= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
-        let endPointIndex= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
-        if(startPointIndex>=0&&endPointIndex>=0){
-            //Push inf Nove hrany do listInformaceHran
-            listOfEdgeInf.push(e.target.value);
-            setListOfEdgeInf(listOfEdgeInf);
+    const OnRemoveEdge=(startId,endId)=>{
+        const newGraph={
+            'points':[...graph.points],
+            'dataOfEdges':graph.dataOfEdges.filter(dataOfEdge=>((dataOfEdge.startId!==startId)||(dataOfEdge.endId!==endId)))
         }
+        setGraph(newGraph);
     }
-    const IncreaseNumberOfPoints=()=>{
-        if(numberOfPoints<6){
-            setNumberOfPoints(numberOfPoints+1);
-        }
-    }
-    const DecreasenumberOfPoints=()=>{
-        if(numberOfPoints>1){
-            setNumberOfPoints(numberOfPoints-1);
-        }
-    }
-    const AddNewEdge=()=>{
-        setNumberOfEdges(numberOfEdges+1);
-    }
-    const AddChange=()=>{
-        setnumberOfChange(numberOfChange+1);
-    }
-    //Get list pozice vrcholu podle zvolene promenne pocetVrcholu
-    const points=pointData[numberOfPoints-1];
-    //Get list hran od listInformaceHran
-    const checkedListInf=listOfEdgeInf.filter(inf=>{
-        return Number(inf.split(" ")[0])<numberOfPoints&&Number(inf.split(" ")[1])<numberOfPoints
-    });
-    const edges= checkedListInf.map(inf=>{
-        return [points[Number(inf.split(" ")[0])],points[Number(inf.split(" ")[1])], inf.split(" ")[2]];
-    });
-   
+    // const HandlePointChange=(event)=>{
+    //     //index vrcholu 
+    //     const index=(event.target.value.split(" ")[0]!=="")?Number(event.target.value.split(" ")[0]):-1;
+    //     //pozice vrcholu
+    //     const px=(event.target.value.split(" ")[1]!=="")?Number(event.target.value.split(" ")[1]):-1;
+    //     const py=(event.target.value.split(" ")[2]!=="")?Number(event.target.value.split(" ")[2]):-1;
+    //     const state=event.target.value.split(" ")[3];
 
+    //     let isExistedPoint=false;
+    //     for(let existedPoint in graph.points){
+    //         if(index===existedPoint.id){
+    //             isExistedPoint=true;
+    //         }
+    //     }
+
+    //     if(index>=0 && px>=0 && py>=0&& px<900 && py<500){
+    //         // Novy graph
+    //         const newPoint={'id':index,'x':px,'y':py,'state':state};
+    //         if(isExistedPoint){
+    //             const newGraph={
+    //                 'points': graph.points.filter(point=>(point.id!==index)).push(newPoint),
+    //                 'edges':[...graph.edges]
+    //             };
+    //             setGraph(newGraph);
+    //         }
+    //         else{
+    //             const newGraph={
+    //                 'points': [...graph.points,newPoint],
+    //                 'edges':[...graph.edges]
+    //             };
+    //             setGraph(newGraph);
+    //         }
+    //     }
+    // }
+    // const HandleEdgeChange=(e)=>{
+    //     //phai loai truong hop "" vi Number("") la 0
+    //     let startPointIndex= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
+    //     let endPointIndex= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
+    //     let signaly=e.target.value.split(" ")[2];
+    //     if(startPointIndex>=0&&endPointIndex>=0){
+    //         //Novy graph
+    //         const newEdge={'startPoint': startPointIndex,'endPoint':endPointIndex,'signaly':signaly};
+    //         const newGraph={
+    //             'points': [...graph.points],
+    //             'edges':[...graph.edges,newEdge]
+    //         };
+    //         setGraph(newGraph);
+    //     }
+    // }
     return(
         <>
             <div className="container-fluid p-2 bg-primary text-white">
@@ -85,31 +91,31 @@ function Automat(){
             <div className ="row">
                 <div className="col">
                     <br/>
-                    <p>Pocet vrcholu:
-                        <button onClick= {()=>DecreasenumberOfPoints()} className="btn btn-primary btn-sm">-</button> 
-                        {numberOfPoints} 
-                        <button onClick ={()=> IncreaseNumberOfPoints()} className="btn btn-primary btn-sm">+</button>
-                    </p>
+                    <b>Vrcholy:</b>
                     <HandlePoints 
-                        points={points} 
-                        handlePointChange={HandlePointChange}
-                        numberOfChange={numberOfChange}
-                        addChange={AddChange}
+                        points={graph.points} 
+                        //handlePointChange={HandlePointChange}
+                        onRemovePoint={OnRemovePoint}
                     />
                     <br/>
-                    <b>Tvoreni nove hrany.</b>
+                    <b>Hrany:</b>
                     <HandleEdges 
-                        handleEdgeChange={HandleEdgeChange} 
-                        numberOfEdges={numberOfEdges}  
-                        addNewEdge={AddNewEdge}
+                        dataOfEdges= {graph.dataOfEdges}
+                        //handleEdgeChange={HandleEdgeChange} 
+                        onRemoveEdge={OnRemoveEdge}
                     />
                 </div>
                 <div className="col">
                     <br/>
                     <svg width="900" height="500">
                         <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
-                        <Edges edges={edges}/>
-                        <Points points={points}/>
+                        <Edges 
+                            dataOfEdges={graph.dataOfEdges}
+                            points={graph.points}
+                        />
+                        <Points 
+                            points={graph.points}
+                        />
                     </svg>
                 </div>
             </div>
@@ -117,4 +123,4 @@ function Automat(){
     );
 }
 
-export default Automat;
+export default Automat

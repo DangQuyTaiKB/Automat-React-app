@@ -1,10 +1,17 @@
 import Edge from './edge'
 
 const Edges=(props)=>{
-    const edges=props.edges;
+    const dataOfEdges=props.dataOfEdges;
+    const points=props.points;
     return (
         <>
-            {edges.map(edge =>(<Edge startPoint={edge[0]} endPoint={edge[1]}  signaly={edge[2]}/>))}
+            {dataOfEdges.map(dataOfEdge =>{
+                //wrong way startPoint= points[dataOfEdge.startId];
+                const startPoint= points.filter(point=>(point.id===dataOfEdge.startId))[0];
+                const endPoint= points.filter(point=>(point.id===dataOfEdge.endId))[0];
+                const signaly=dataOfEdge.signaly;
+                return <Edge startPoint={startPoint} endPoint={endPoint}  signaly={signaly}/>
+            })}
         </>
     );
 }

@@ -1,28 +1,20 @@
-const HandleEdge=(props)=>{
+const HandleEdges=(props)=>{
+    const dataOfEdges=props.dataOfEdges;
     return(
         <>
-            <form>
-                <label>Hrana:
+            {dataOfEdges.map(dataOfEdge=>(
+                <p>Hrana [{dataOfEdge.startId},{dataOfEdge.endId}] signaly:{dataOfEdge.signaly}
+                <button className="btn btn-primary btn-sm" onClick={()=>props.onRemoveEdge(dataOfEdge.startId,dataOfEdge.endId)}>-</button>
+                </p>
+            ))}
+            {/* <form>
+                <label>Pridana Hrana:
                     <input 
                         type="text" 
                         onChange={props.handleEdgeChange}
                     />
                 </label>
-            </form>                
-        </>
-    );
-}
-
-const HandleEdges=(props)=>{
-    let formy=[];
-    for(let i=0;i<props.numberOfEdges;i++){
-        formy.push(1);
-    }
-    return(
-        <>
-            {formy.map(form=>(<HandleEdge handleEdgeChange={props.handleEdgeChange}/>))}
-            {/*Nejde onClick jeli ={()=>props.addHranu}*/}
-            <button className="btn btn-primary btn-sm" onClick={()=>props.addNewEdge()}>Novou Hranu</button>
+            </form> */}
         </>
     );
 }

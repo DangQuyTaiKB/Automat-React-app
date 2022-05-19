@@ -1,38 +1,22 @@
-const HandlePoint = (props) => {
-    return(
+const HandlePoints=(props)=>{
+    const points=props.points;
+    return (
         <>
-            <pre> - Vrchol {props.index}: [{props.x}, {props.y}]</pre>
+            {points.map(point=>(
+                <p>-    Vrchol {point.id}: [{point.x}, {point.y}]
+                <button className="btn btn-primary btn-sm" onClick={()=>props.onRemovePoint(point.id)}>-</button>
+                </p>
+            ))} 
+            {/* <form >
+                <label>Pridany vrchol:
+                    <input 
+                            type="text" 
+                            onChange={props.handlePointChange}
+                    />
+                </label>
+            </form>  */}
         </>
     );
 }
 
-const HandlePoints=(props)=>{
-    const points=props.points;
-    let formy=[];
-    for(let i=0;i<props.numberOfChange;i++){
-        formy.push(1);
-    }
-    return (
-        <>
-            {points.map((point,index)=> (
-                <HandlePoint 
-                    index={index} 
-                    x={point.x} 
-                    y={point.y}
-                />
-            ))} 
-            {formy.map(form=>(
-                <form >
-                    <label>Zmen pozice vrcholu:
-                        <input 
-                            type="text" 
-                            onChange={props.handlePointChange}
-                        />
-                    </label>
-                </form> 
-            ))}
-            <button className="btn btn-primary btn-sm" onClick={()=>props.addChange()}>Zmen pozice</button>
-        </>
-    );
-}
 export default HandlePoints
