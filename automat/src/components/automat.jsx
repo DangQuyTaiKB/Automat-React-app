@@ -18,6 +18,7 @@ function Automat(){
         ]
     };
     const [graph,setGraph]=useState(originalGraph);
+    const [textSVG,setTextSVG]=useState('');
     
     const OnRemovePoint= (removedId)=>{
         const newGraph={
@@ -82,6 +83,15 @@ function Automat(){
     //         setGraph(newGraph);
     //     }
     // }
+
+    function exportSVG(e){
+        console.log(document.getElementById("svg"));
+        setTextSVG(document.getElementById("svg").innerHTML)
+    }
+
+    function importSVG(){
+        document.getElementById("svg").innerHTML = document.getElementById("text-svg").value;
+    }
     return(
         <>
             <div className="container-fluid p-2 bg-primary text-white">
@@ -104,8 +114,7 @@ function Automat(){
                         onRemoveEdge={OnRemoveEdge}
                     />
                 </div>
-                <div className="col">
-                    <br/>
+                <div className="col" id="svg">
                     <svg width="900" height="500">
                         <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
                         <Edges 
@@ -117,6 +126,9 @@ function Automat(){
                         />
                     </svg>
                 </div>
+                <button onClick={exportSVG}>Export svg</button>
+                <button onClick={importSVG}>Import svg</button>
+                <textarea name="" id="text-svg" cols="30" rows="10" value={textSVG} onChange={e => {setTextSVG(e.target.value)}}></textarea>
             </div>
         </>
     );
