@@ -1,5 +1,4 @@
-//vrchol.stories.jsx
-import {Vrchol} from './Vrchol';
+import {Point} from './Point';
 
 export default {
     /* 👇 The title prop is optional.
@@ -7,22 +6,24 @@ export default {
     * to learn how to generate automatic titles
      */
     title: 'Vrchol',
-    component: Vrchol
+    component: Point
 };
 
 //👇 We create a “template” of how args map to rendering
-const Template = (args) => <Vrchol {...args} />;
+const Template = (args) => <Point {...args} />;
 
 //👇 Each story then reuses that template
-export const Normal = Template.bind({});
+export const Obecny = Template.bind({});
 
-Normal.args={
-    position: [200,100],
-    index: 1
+Obecny.args={
+    x:200,
+    y:100,
+    id: 1
 };
 
-export const StartState = Template.bind({});
-StartState.args={
-    position: [200,100],
-    index: 0
+export const Pocatecni = Template.bind({});
+Pocatecni.args={
+    x:200,
+    y:100,
+    id: 0
 };
