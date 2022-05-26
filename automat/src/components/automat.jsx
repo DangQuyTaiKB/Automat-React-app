@@ -24,6 +24,7 @@ function Automat(){
     const [graphData,setGraphData]=useState(initialData);
     const [textSVG, setTextSVG]=useState(initialData);
 
+
     const OnRemovePoint= (removedId)=>{
         const newGraph={
             'points': graphData.points.filter(point=>(point.id!==removedId)),
@@ -38,6 +39,12 @@ function Automat(){
         }
         setGraphData(newGraph);
     }
+
+    const HandlePointChange2=(pointId, pointX, pointY)=>{
+        // change the graf create new graf
+        console.log(pointId, pointX, pointY);
+    }
+    // complicovat 
     const HandlePointChange=(event)=>{
         //Pripadu, ze index,py,px udavajici prazdnych retezcu, neprijimame
         const index=(event.target.value.split(" ")[0]!=="")?Number(event.target.value.split(" ")[0]):-1;
@@ -70,6 +77,8 @@ function Automat(){
             setGraphData(newGraph);
         }
     }
+
+    // cần sửa lại, cần chứa id ò the edge, để cos thể sửa đổi được các cạnh chứa: id, để kiểu mỗi cái chứa một id  
     const HandleEdgeChange=(e)=>{
         const startPointIndex= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
         const endPointIndex= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
@@ -85,12 +94,20 @@ function Automat(){
             setGraphData(newGraph);
         }
     }
+
+    // Remove
     const Download=(content)=>{
         // const name='image.svg';
         // const file= new Blob([content],{type:'image/svg+xml;charset=utf-8'});
         // saveAs(file,name);
-        const a= new Blob(["Hello"],{type:'text/plain;charset=utf-8' });
-        saveAs(a,'hello.txt');
+
+        // const a= new Blob(["Hello"],{type:'text/plain;charset=utf-8' });
+        // saveAs(a,'hello.txt');
+
+        // const b = exportSVG(content);
+        const a= new Blob([content],{type:'text/plain;charset=utf-8' });
+        saveAs(a,'image.html');
+
     }
     // const SaveSvgAsPng=()=>{
     //     console.log('a');
@@ -103,7 +120,7 @@ function Automat(){
     }
 
     function importSVG(){
-        document.getElementById("svg").innerHTML = document.getElementById("text-svg").value;
+        // document.getElementById("svg").innerHTML = document.getElementById("text-svg").value;
     }
 
     return(
@@ -118,6 +135,9 @@ function Automat(){
                     <HandlePoints 
                         points={graphData.points} 
                         handlePointChange={HandlePointChange}
+
+                        handlePointChange2={HandlePointChange2}
+
                         onRemovePoint={OnRemovePoint}
                     />
                     <br/>
@@ -128,13 +148,19 @@ function Automat(){
                         onRemoveEdge={OnRemoveEdge}
                     />
                     {/* <button className='btn btn-primary btn-sm' onClick={()=>Download(<Graph id="automat" graphData={graphData}/>)}>Download</button> */}
+<<<<<<< HEAD
+=======
+                    {/* <button className='btn btn-primary btn-sm' onClick={()=>Download(document.getElementById("svg").innerHTML)}>Download</button> */}
+>>>>>>> 4f057d6d486c5701977d2b9199b65c18c2f4512a
                 </div>
                 <div className="col" id ="svg">
                     <Graph id="automat" graphData={graphData}/>
                 </div>
-                <button onClick={exportSVG}>Export svg</button>
-                <button onClick={importSVG}>Import svg</button>
-                <textarea name="" id="text-svg" cols="30" rows="10" value={textSVG} onChange={e => {setTextSVG(e.target.value)}}></textarea>
+                
+                {/* <button onClick={exportSVG}>Export svg</button> */}
+                {/* <button onClick={importSVG}>Import svg</button> */}
+                {/* <textarea name="" id="text-svg" cols="30" rows="10" value={textSVG} onChange={e => {setTextSVG(e.target.value)}}></textarea> */}
+
             </div>
         </>
     );

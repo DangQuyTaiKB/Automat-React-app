@@ -5,6 +5,8 @@ const HandlePoints=(props)=>{
             {points.map(point=>(
                 <p>-Vrchol {point.id}: [{point.x}, {point.y}] Stav: {point.state}  
                 <button className="btn btn-primary btn-sm" onClick={()=>props.onRemovePoint(point.id)}>-</button>
+                <input type="text" value={point.state} onChange={(e)=>props.handlePointChange2(point.id,e.target.value)}/>
+                {/* have same list of parameters */}
                 </p>
             ))} 
             <form >
