@@ -127,7 +127,7 @@ function Automat(){
                         handleEdgeChange={HandleEdgeChange} 
                         onRemoveEdge={OnRemoveEdge}
                     />
-                    <button className='btn btn-primary btn-sm' onClick={()=>Download(<Graph id="automat" graphData={graphData}/>)}>Download</button>
+                    {/* <button className='btn btn-primary btn-sm' onClick={()=>Download(<Graph id="automat" graphData={graphData}/>)}>Download</button> */}
                 </div>
                 <div className="col" id ="svg">
                     <Graph id="automat" graphData={graphData}/>
