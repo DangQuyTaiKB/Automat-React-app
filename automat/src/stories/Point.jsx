@@ -1,4 +1,4 @@
-const Point=(props)=>{
+export const Point=(props)=>{
     const x=props.x;
     const y=props.y
     const id=props.id;
@@ -6,8 +6,7 @@ const Point=(props)=>{
     const radius= 20;
     const h=10;
     if(id===0){
-        //initial state
-        return <> 
+        return <svg width="1200" height="600"> 
             <line x1={x-3*radius} y1={y} x2={x-radius} y2={y} stroke="black" strokeWidth="2"/>
             <polygon 
                 points={[
@@ -20,15 +19,14 @@ const Point=(props)=>{
             <circle cx= {x} cy={y} r={radius} stroke="black" strokeWidth="2" fill="white"></circle>
             <circle cx= {x} cy={y} r={radius-5} stroke="black" strokeWidth="2" fill="white"></circle>
             <text x={x-5} y={y+5} fill="red">{id}</text>
-        </>
+        </svg>
     }
     else{
-        //regular state
-        return <> 
+        return <svg width="1200" height="600"> 
             <circle cx= {x} cy={y} r={radius} stroke="black" strokeWidth="2" fill="white"></circle>
             <text x={x-5} y={y+5} fill="red">{id}</text>
-        </>
+        </svg>
     }
 }
 
-export default Point
+

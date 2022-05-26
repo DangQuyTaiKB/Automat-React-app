@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
-import Edges from './edges'
-import Points from './points'
+//npm install file-saver
+import {saveAs} from 'file-saver';
+//import * as svg from 'save-svg-as-png'
+
+
+import Graph from './graph'
 import HandlePoints from './handlingOfPoints'
 import HandleEdges from './handlingOfEdges'
 
 function Automat(){
-    const originalGraph={
+    const initialData={
         'points':[
             {'id':0,'x':300,'y':400, 'state':'A'},
             {'id':1,'x':600,'y':400, 'state':'B'},
@@ -13,75 +17,84 @@ function Automat(){
             {'id':3,'x':300,'y':100, 'state':'D'},
         ],
         'dataOfEdges':[
-            {'startId':0,'endId':1,'signaly':'a'},
-            {'startId':1,'endId':2,'signaly':'b'}
+            {'startId':0,'endId':1,'symbols':'a'},
+            {'startId':1,'endId':2,'symbols':'b'}
         ]
     };
-    const [graph,setGraph]=useState(originalGraph);
-    const [textSVG,setTextSVG]=useState('');
-    
+    const [graphData,setGraphData]=useState(initialData);
+    const [textSVG, setTextSVG]=useState(initialData);
+
     const OnRemovePoint= (removedId)=>{
         const newGraph={
-            'points': graph.points.filter(point=>(point.id!==removedId)),
-            'dataOfEdges': graph.dataOfEdges.filter(dataOfEdge=>((dataOfEdge.startId!==removedId)&&(dataOfEdge.endId!==removedId)))
+            'points': graphData.points.filter(point=>(point.id!==removedId)),
+            'dataOfEdges': graphData.dataOfEdges.filter(dataOfEdge=>((dataOfEdge.startId!==removedId)&&(dataOfEdge.endId!==removedId)))
         }
-        setGraph(newGraph);
+        setGraphData(newGraph);
     }
     const OnRemoveEdge=(startId,endId)=>{
         const newGraph={
-            'points':[...graph.points],
-            'dataOfEdges':graph.dataOfEdges.filter(dataOfEdge=>((dataOfEdge.startId!==startId)||(dataOfEdge.endId!==endId)))
+            'points':[...graphData.points],
+            'dataOfEdges':graphData.dataOfEdges.filter(dataOfEdge=>((dataOfEdge.startId!==startId)||(dataOfEdge.endId!==endId)))
         }
-        setGraph(newGraph);
+        setGraphData(newGraph);
     }
-    // const HandlePointChange=(event)=>{
-    //     //index vrcholu 
-    //     const index=(event.target.value.split(" ")[0]!=="")?Number(event.target.value.split(" ")[0]):-1;
-    //     //pozice vrcholu
-    //     const px=(event.target.value.split(" ")[1]!=="")?Number(event.target.value.split(" ")[1]):-1;
-    //     const py=(event.target.value.split(" ")[2]!=="")?Number(event.target.value.split(" ")[2]):-1;
-    //     const state=event.target.value.split(" ")[3];
-
-    //     let isExistedPoint=false;
-    //     for(let existedPoint in graph.points){
-    //         if(index===existedPoint.id){
-    //             isExistedPoint=true;
-    //         }
-    //     }
-
-    //     if(index>=0 && px>=0 && py>=0&& px<900 && py<500){
-    //         // Novy graph
-    //         const newPoint={'id':index,'x':px,'y':py,'state':state};
-    //         if(isExistedPoint){
-    //             const newGraph={
-    //                 'points': graph.points.filter(point=>(point.id!==index)).push(newPoint),
-    //                 'edges':[...graph.edges]
-    //             };
-    //             setGraph(newGraph);
-    //         }
-    //         else{
-    //             const newGraph={
-    //                 'points': [...graph.points,newPoint],
-    //                 'edges':[...graph.edges]
-    //             };
-    //             setGraph(newGraph);
-    //         }
-    //     }
-    // }
-    // const HandleEdgeChange=(e)=>{
-    //     //phai loai truong hop "" vi Number("") la 0
-    //     let startPointIndex= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
-    //     let endPointIndex= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
-    //     let signaly=e.target.value.split(" ")[2];
-    //     if(startPointIndex>=0&&endPointIndex>=0){
-    //         //Novy graph
-    //         const newEdge={'startPoint': startPointIndex,'endPoint':endPointIndex,'signaly':signaly};
-    //         const newGraph={
-    //             'points': [...graph.points],
-    //             'edges':[...graph.edges,newEdge]
-    //         };
-    //         setGraph(newGraph);
-    //     }
+    const HandlePointChange=(event)=>{
+        //Pripadu, ze index,py,px udavajici prazdnych retezcu, neprijimame
+        const index=(event.target.value.split(" ")[0]!=="")?Number(event.target.value.split(" ")[0]):-1;
+        const px=(event.target.value.split(" ")[1]!=="")?Number(event.target.value.split(" ")[1]):-1;
+        const py=(event.target.value.split(" ")[2]!=="")?Number(event.target.value.split(" ")[2]):-1;
+        //tady jsou index,py,py. 
+        //Pokud jeste neexistuje-li druhy, treti prvek po split
+        //pak, ze px,py udavajici NaN
+        //Nasledujici podminky resi vsechny tyto problemy
+        if(index>=0 && px>=0 && py>=0 && px<1200 && py<600){
+            const state=event.target.value.split(" ")[3];
+            const newPoint={'id':index,'x':px,'y':py,'state':state};
+            //nefunguje ? newGraph=graph;
+            const newGraph={
+                'points':[...graphData.points],
+                'dataOfEdges':[...graphData.dataOfEdges]
+            };
+            
+            let isExistedPoint=false;
+            //nefunguje for(let point in newGraph.point)
+            for(let i=0;i<newGraph.points.length;i++){
+                if(index===newGraph.points[i].id){
+                    newGraph.points[i]=newPoint;
+                    isExistedPoint=true;
+                }
+            }
+            if(!isExistedPoint){
+                newGraph.points.push(newPoint);
+            }
+            setGraphData(newGraph);
+        }
+    }
+    const HandleEdgeChange=(e)=>{
+        const startPointIndex= (e.target.value.split(" ")[0]!=="")?Number(e.target.value.split(" ")[0]):-1;
+        const endPointIndex= (e.target.value.split(" ")[1]!=="")?Number(e.target.value.split(" ")[1]):-1;
+        
+        if(startPointIndex>=0&&endPointIndex>=0){
+            const signaly=e.target.value.split(" ")[2];
+            const newEdge={'startId': startPointIndex,'endId':endPointIndex,'symbols':signaly};
+            const newGraph={
+                'points':[...graphData.points],
+                'dataOfEdges':[...graphData.dataOfEdges,newEdge]
+            };
+            console.log(newGraph.dataOfEdges);
+            setGraphData(newGraph);
+        }
+    }
+    const Download=(content)=>{
+        // const name='image.svg';
+        // const file= new Blob([content],{type:'image/svg+xml;charset=utf-8'});
+        // saveAs(file,name);
+        const a= new Blob(["Hello"],{type:'text/plain;charset=utf-8' });
+        saveAs(a,'hello.txt');
+    }
+    // const SaveSvgAsPng=()=>{
+    //     console.log('a');
+    //     svg.saveSvgAsPng(document.getElementById("automat"),"diagram.png");
     // }
 
     function exportSVG(e){
@@ -92,6 +105,7 @@ function Automat(){
     function importSVG(){
         document.getElementById("svg").innerHTML = document.getElementById("text-svg").value;
     }
+
     return(
         <>
             <div className="container-fluid p-2 bg-primary text-white">
@@ -102,29 +116,21 @@ function Automat(){
                     <br/>
                     <b>Vrcholy:</b>
                     <HandlePoints 
-                        points={graph.points} 
-                        //handlePointChange={HandlePointChange}
+                        points={graphData.points} 
+                        handlePointChange={HandlePointChange}
                         onRemovePoint={OnRemovePoint}
                     />
                     <br/>
                     <b>Hrany:</b>
                     <HandleEdges 
-                        dataOfEdges= {graph.dataOfEdges}
-                        //handleEdgeChange={HandleEdgeChange} 
+                        dataOfEdges= {graphData.dataOfEdges}
+                        handleEdgeChange={HandleEdgeChange} 
                         onRemoveEdge={OnRemoveEdge}
                     />
+                    <button className='btn btn-primary btn-sm' onClick={()=>Download(<Graph id="automat" graphData={graphData}/>)}>Download</button>
                 </div>
-                <div className="col" id="svg">
-                    <svg width="900" height="500">
-                        <polyline points="0,0 900,0 900,500 0,500 0,0" fill= "white" stroke="black" strokeWidth="10"/>
-                        <Edges 
-                            dataOfEdges={graph.dataOfEdges}
-                            points={graph.points}
-                        />
-                        <Points 
-                            points={graph.points}
-                        />
-                    </svg>
+                <div className="col" id ="svg">
+                    <Graph id="automat" graphData={graphData}/>
                 </div>
                 <button onClick={exportSVG}>Export svg</button>
                 <button onClick={importSVG}>Import svg</button>

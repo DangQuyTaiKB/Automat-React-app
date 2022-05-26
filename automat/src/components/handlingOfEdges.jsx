@@ -3,18 +3,18 @@ const HandleEdges=(props)=>{
     return(
         <>
             {dataOfEdges.map(dataOfEdge=>(
-                <p>Hrana [{dataOfEdge.startId},{dataOfEdge.endId}] signaly:{dataOfEdge.signaly}
+                <p>Hrana [{dataOfEdge.startId},{dataOfEdge.endId}] Znaky:{dataOfEdge.symbols}
                 <button className="btn btn-primary btn-sm" onClick={()=>props.onRemoveEdge(dataOfEdge.startId,dataOfEdge.endId)}>-</button>
                 </p>
             ))}
-            {/* <form>
+            <form>
                 <label>Pridana Hrana:
                     <input 
                         type="text" 
                         onChange={props.handleEdgeChange}
                     />
                 </label>
-            </form> */}
+            </form>
         </>
     );
 }
