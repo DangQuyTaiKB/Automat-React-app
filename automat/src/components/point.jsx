@@ -5,6 +5,7 @@ const Point=(props)=>{
 
     const radius= 20;
     const h=10;
+    //  ???
     if(id===0){
         //initial state
         return <> 
