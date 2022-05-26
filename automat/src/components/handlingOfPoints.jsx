@@ -5,18 +5,10 @@ const HandlePoints=(props)=>{
             {points.map(point=>(
                 <p>-Vrchol {point.id}: [{point.x}, {point.y}] Stav: {point.state}  
                 <button className="btn btn-primary btn-sm" onClick={()=>props.onRemovePoint(point.id)}>-</button>
-                <input type="text" value={point.state} onChange={(e)=>props.handlePointChange2(point.id,e.target.value)}/>
-                {/* have same list of parameters */}
+                <input type="text" onChange={(e)=>props.handlePointChange(point.id,e.target.value)}/>
                 </p>
             ))} 
-            <form >
-                <label>Pridany vrchol:
-                    <input 
-                        type="text" 
-                        onChange={props.handlePointChange}
-                    />
-                </label>
-            </form> 
+            <button className="btn btn-primary btn-sm" onClick={props.handleNewPoint}>Novy Vrchol</button>
         </>
     );
 }
