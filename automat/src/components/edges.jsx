@@ -11,6 +11,12 @@ const Edges=(props)=>{
                 if(edge.startId===edge.endId){
                     label='smycka';
                 }
+                else{// must be startId!==endId
+                    if(edges.filter(ed=>(ed.startId===edge.endId&&ed.endId===edge.startId)).length===1){
+                        label='krivka';
+                    }
+                }
+               
                 return <Edge 
                     points={points}
                     startId={edge.startId} 

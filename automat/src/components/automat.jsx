@@ -14,7 +14,9 @@ function Automat(){
         ],
         'edges':[
             {'id': 0,'startId':0,'endId':1,'symbols':'a'},
-            {'id':1,'startId':1,'endId':2,'symbols':'b'}
+            {'id':1,'startId':1,'endId':2,'symbols':'b'},
+            {'id':2,'startId':2,'endId':1,'symbols':'a'},
+            {'id':3,'startId':3,'endId':3,'symbols':'b'}
         ]
     };
     const [graphData,setGraphData]=useState(initialData);
