@@ -1,6 +1,9 @@
 const Edge=(props)=>{
-    const A=props.startPoint;
-    const B=props.endPoint;
+    const points=props.points;
+    const startPoint= points.filter(point=>(point.id===props.startId))[0];
+    const endPoint= points.filter(point=>(point.id===props.endId))[0];
+    const A=startPoint;
+    const B=endPoint;
     const symbols=props.symbols;
     const radius=20;
     const h=10; //vyska trojuhelnik sipky

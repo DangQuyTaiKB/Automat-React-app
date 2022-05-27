@@ -5,9 +5,8 @@ const Point=(props)=>{
 
     const radius= 20;
     const h=10;
-    //  ???
     if(id===0){
-        //initial state
+        //initial(start) state
         return <> 
             <line x1={x-3*radius} y1={y} x2={x-radius} y2={y} stroke="black" strokeWidth="2"/>
             <polygon 
