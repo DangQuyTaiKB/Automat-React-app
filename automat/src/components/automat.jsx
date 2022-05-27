@@ -61,7 +61,7 @@ function Automat(){
         }
     }
     
-    const OnRemoveEdge=(startId,endId)=>{
+    const OnRemoveEdge=(startId,endId)=>{//can be deleted by its id
         const newGraph={
             'points':[...graphData.points],
             'edges':graphData.edges.filter(edge=>((edge.startId!==startId)||(edge.endId!==endId)))
@@ -90,7 +90,7 @@ function Automat(){
                 const newEdge={'id':id,'startId': startPointIndex,'endId':endPointIndex,'symbols':symbols};
                 const newGraph={
                     'points':[...graphData.points],
-                    'dataOfEdges':[...graphData.edges,newEdge]
+                    'edges':[...graphData.edges,newEdge]
                 };
                 setGraphData(newGraph);
             }

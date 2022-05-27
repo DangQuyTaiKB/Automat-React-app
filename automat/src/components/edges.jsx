@@ -7,11 +7,15 @@ const Edges=(props)=>{
         <>
             {edges.map(edge =>{
                 //wrong way startPoint= points[dataOfEdge.startId];
+                let label='obecna';
+                if(edge.startId===edge.endId){
+                    label='smycka';
+                }
                 return <Edge 
-                    id={edge.id}
                     points={points}
                     startId={edge.startId} 
                     endId={edge.endId}  
+                    label={label}
                     symbols={edge.symbols}
                 />
             })}

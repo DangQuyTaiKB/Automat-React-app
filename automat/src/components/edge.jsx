@@ -2,13 +2,15 @@ const Edge=(props)=>{
     const points=props.points;
     const startPoint= points.filter(point=>(point.id===props.startId))[0];
     const endPoint= points.filter(point=>(point.id===props.endId))[0];
+    const label=props.label;
+    const symbols=props.symbols;
+
     const A=startPoint;
     const B=endPoint;
-    const symbols=props.symbols;
     const radius=20;
     const h=10; //vyska trojuhelnik sipky
     const lengthAB = Math.sqrt((A.x-B.x)**2+(A.y-B.y)**2);
-    if(lengthAB!==0){
+    if(label==='obecna'){
         const x1=A.x+(B.x-A.x)*(radius/lengthAB);
         const y1=A.y+(B.y-A.y)*(radius/lengthAB);
         const x2=B.x-(B.x-A.x)*(radius/lengthAB);
@@ -35,7 +37,7 @@ const Edge=(props)=>{
             <text x={(A.x+B.x)/2} y={(A.y+B.y)/2} fill="red">{symbols}</text>
         </>
     }
-    else{
+    if(label=='smycka'){
         //loop
         return<>
             <ellipse cx={A.x} cy={A.y-radius} rx={2*radius} ry={radius} stroke="black" stroke-width="2" fill="white"/>
@@ -50,5 +52,6 @@ const Edge=(props)=>{
             <text x={A.x-radius} y={A.y-2*radius} fill="red">{symbols}</text>
         </>
     }
+    //if(label==='krivka')
 }
 export default Edge
