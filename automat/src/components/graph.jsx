@@ -7,7 +7,7 @@ const Graph=(props)=>{
         <svg width="1000" height="600">
             <polyline points="0,0 1000,0 1000,600 0,600 0,0" fill= "white" stroke="black" strokeWidth="10"/>
             <Edges 
-                dataOfEdges={graphData.dataOfEdges}
+                edges={graphData.edges}
                 points={graphData.points}
             />
             <Points 
