@@ -8,7 +8,7 @@ const HandleEdges=(props)=>{
                 <input type="text" onChange={(e)=>props.handleEdgeChange(edges.id,e.target.value)}/>
                 </p>
             ))}
-            <label>Novou hranu: Id Start End Symbols
+            <label>Novou hranu: Id Start End
                 <input 
                     type="text" 
                     onChange={(e)=>props.handleNewEdge(e.target.value)}

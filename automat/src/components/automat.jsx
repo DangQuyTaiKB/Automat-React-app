@@ -72,24 +72,31 @@ function Automat(){
     }
     const HandleNewEdge=(input)=>{
         const id=(input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
-        const startPointIndex= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):-1;
-        const endPointIndex= (input.split(" ")[2]!=="")?Number(input.split(" ")[2]):-1;
-        //i known it. When 2nd, 3rd,... part of input does not exist, it returns 
-        const symbols=(input.split(" ")[3]!=="")?input.split(" ")[3]:undefined;
-        console.log(symbols);
-        if(!isNaN(id)&&startPointIndex>=0&&endPointIndex>=0&& symbols!==undefined){
+        const startPointIndex= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
+        const endPointIndex= (input.split(" ")[2]!=="")?Number(input.split(" ")[2]):NaN;
+        //i known it. When 2nd, 3rd,... part of input does not exist, it returns undefined
+        //const symbols=(input.split(" ")[3]!=="")?input.split(" ")[3]:undefined;
+        if(!isNaN(id)
+            &&!isNaN(startPointIndex)
+            &&!isNaN(endPointIndex)
+            &&graphData.points.filter(point=>(point.id===startPointIndex)).length>0
+            &&graphData.points.filter(point=>(point.id===endPointIndex)).length>0
+            /*&& symbols!==undefined*/
+        ){
             let isExistedEdge=false;
-            //const symbols=input.split(" ")[3];
             for(let i=0;i<graphData.edges.length;i++){
                 if(id===graphData.edges[i].id){
                     isExistedEdge=true;
+                    break;
                 }
+                //My opinion: exist only 1 edge for one [startPoint,endPoint]
                 if(startPointIndex===graphData.edges[i].startId&&endPointIndex===graphData.edges[i].endId){
                     isExistedEdge=true;
+                    break;
                 }
             }
             if(!isExistedEdge){
-                const newEdge={'id':id,'startId': startPointIndex,'endId':endPointIndex,'symbols':symbols};
+                const newEdge={'id':id,'startId': startPointIndex,'endId':endPointIndex/*,'symbols':symbols*/};
                 const newGraph={
                     'points':[...graphData.points],
                     'edges':[...graphData.edges,newEdge]
