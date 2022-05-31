@@ -99,12 +99,14 @@ function Automat(){
         }
     }
     const HandleEdgeChange=(edgeId, input)=>{
-        const startPointIndex= (input.split(" ")[0]!=="")?Number(input.split(" ")[0]):-1;
-        const endPointIndex= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):-1;
+        const startIndex= (input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
+        const endIndex= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
         
-        if(startPointIndex>=0&&endPointIndex>=0){
-            const signaly=input.split(" ")[2];
-            const newEdge={'id':edgeId,'startId': startPointIndex,'endId':endPointIndex,'symbols':signaly};
+        if(!isNaN(startIndex)&&!isNaN(endIndex)
+        &&graphData.points.filter(point=>(point.id===startIndex)).length>0
+        &&graphData.points.filter(point=>(point.id===endIndex)).length>0){
+            const symbols=input.split(" ")[2];
+            const newEdge={'id':edgeId,'startId': startIndex,'endId':endIndex,'symbols':symbols};
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges]
