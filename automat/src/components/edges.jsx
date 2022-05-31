@@ -6,7 +6,6 @@ const Edges=(props)=>{
     return (
         <>
             {edges.map(edge =>{
-                //wrong way startPoint= points[dataOfEdge.startId];
                 let label='obecna';
                 if(edge.startId===edge.endId){
                     label='smycka';
@@ -16,7 +15,6 @@ const Edges=(props)=>{
                         label='krivka';
                     }
                 }
-               
                 return <Edge 
                     points={points}
                     startId={edge.startId} 

@@ -1,14 +1,14 @@
 const HandleEdges=(props)=>{
-    const dataOfEdges=props.dataOfEdges;
+    const edges=props.edges;
     return(
         <>
-            {dataOfEdges.map(dataOfEdge=>(
-                <p>Hrana [{dataOfEdge.startId},{dataOfEdge.endId}] Id: {dataOfEdge.id} Znaky:{dataOfEdge.symbols}
-                <button className="btn btn-primary btn-sm" onClick={()=>props.onRemoveEdge(dataOfEdge.startId,dataOfEdge.endId)}>-</button>
-                <input type="text" onChange={(e)=>props.handleEdgeChange(dataOfEdge.id,e.target.value)}/>
+            {edges.map(edge=>(
+                <p>Hrana [{edge.startId},{edge.endId}] Id: {edge.id} Znaky:{edge.symbols}
+                <button className="btn btn-primary btn-sm" onClick={()=>props.onRemoveEdge(edge.id)}>-</button>
+                <input type="text" onChange={(e)=>props.handleEdgeChange(edge.id,e.target.value)}/>
                 </p>
             ))}
-            <label>Novou hranu: Id Start End
+            <label>Novou hranu: Id Start End Symbols
                 <input 
                     type="text" 
                     onChange={(e)=>props.handleNewEdge(e.target.value)}

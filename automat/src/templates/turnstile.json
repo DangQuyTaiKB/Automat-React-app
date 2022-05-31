@@ -1,0 +1,12 @@
+{
+    "points":[
+        {"id":0,"x":100,"y":100,"state":"Locked"},
+        {"id":1,"x":600,"y":100,"state":"Unlocked"}
+    ],
+    "edges":[
+        {"id":0,"startId":0,"endId":1,"symbols":"Coin"},
+        {"id":1,"startId":1,"endId":1,"symbols":"Coin"},
+        {"id":2,"startId":1,"endId":0,"symbols":"Push"},
+        {"id":3,"startId":0,"endId":0,"symbols":"Push"}
+    ]
+}

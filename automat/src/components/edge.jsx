@@ -84,7 +84,8 @@ const Edge=(props)=>{
                 ]}
                 stroke="black" fill="black" strokeWidth="2"
             />
+            <text x={(MidpointX+ControlPointX)/2} y={(MidpointY+ControlPointY)/2} fill="red">{symbols}</text>
         </>
     }
 }
-export default Edge
+export default Edge 
