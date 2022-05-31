@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+//npm install file-saver
+import {saveAs} from 'file-saver';
 
 import Graph from './graph'
 import HandlePoints from './handlingOfPoints'
@@ -119,6 +121,10 @@ function Automat(){
             setGraphData(newGraph);
         }
     }
+    const Download=(content)=>{
+        const a= new Blob([content],{type:'text/plain;charset=utf-8' });
+        saveAs(a,'image.html');
+    }
 
     const exportSVG=(e)=>{
         console.log(document.getElementById("svg"));
@@ -145,6 +151,15 @@ function Automat(){
                 <div className="col">
                     <br/>
                     <b>Vrcholy:</b>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>[x, y]</th>
+                            <th >Stav</th>
+                            <th>Zmenit</th>
+                            <th>Vymaz</th>
+                        </tr>
+                    </table>
                     <HandlePoints 
                         points={graphData.points} 
                         handlePointChange={HandlePointChange}
@@ -159,8 +174,11 @@ function Automat(){
                         onRemoveEdge={OnRemoveEdge}
                         handleNewEdge={HandleNewEdge}
                     />
-                    <button onClick={exportSVG}>Export svg</button>
-                    <textarea name="" id="text-svg" cols="30" rows="10" value={textSVG} onChange={e => {setTextSVG(e.target.value)}}></textarea>
+                    <br />
+                    <br />
+                    <button className='btn btn-primary btn-sm' onClick={()=>Download(document.getElementById("svg").innerHTML)}>Download</button>
+                    <br />
+                    <br />
                     <label>Choose file .json to upload
                         <input type="file" accept=".json" onChange={ImportData}/>
                     </label>
@@ -168,6 +186,8 @@ function Automat(){
                 <div className="col" id ="svg">
                     <Graph graphData={graphData}/>
                 </div>
+                {/* <button onClick={exportSVG}>Export svg</button>
+                <textarea name="" id="text-svg" cols="30" rows="10" value={textSVG} onChange={e => {setTextSVG(e.target.value)}}></textarea> */}
             </div>
         </>
     );
