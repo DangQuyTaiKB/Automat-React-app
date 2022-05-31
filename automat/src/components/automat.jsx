@@ -22,7 +22,7 @@ function Automat(){
         ]
     };
     const [graphData,setGraphData]=useState(initialData);
-    const [textSVG, setTextSVG]=useState("");
+    // const [textSVG, setTextSVG]=useState("");
     const [files,setFiles]= useState("");
 
     const OnRemovePoint= (removedId)=>{
@@ -127,10 +127,10 @@ function Automat(){
     }
 
 
-    const exportSVG=(e)=>{
-        console.log(document.getElementById("svg")); 
-        setTextSVG(document.getElementById("svg").innerHTML) 
-    } 
+    // const exportSVG=(e)=>{
+    //     console.log(document.getElementById("svg")); 
+    //     setTextSVG(document.getElementById("svg").innerHTML) 
+    // } 
 
     const ImportData=(e)=>{
         const fileReader= new FileReader();
@@ -169,6 +169,15 @@ function Automat(){
                     />
                     <br/>
                     <b>Hrany:</b>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>[S,E]</th>
+                            <th>Znaky</th>
+                            <th>Zmenit</th>
+                            <th>Vymaz</th>
+                        </tr>
+                    </table>
                     <HandleEdges 
                         edges= {graphData.edges}
                         handleEdgeChange={HandleEdgeChange} 
@@ -176,13 +185,12 @@ function Automat(){
                         handleNewEdge={HandleNewEdge}
                     />
                     <br />
-                    <br />
                     <button className='btn btn-primary btn-sm' onClick={()=>Download(document.getElementById("svg").innerHTML)}>Download</button>
                     <br />
                     <br />
-                    <label>Choose file .json to upload
+                    <div>Import .json file: 
                         <input type="file" accept=".json" onChange={ImportData}/>
-                    </label>
+                    </div>
                 </div>
                 <div className="col" id ="svg">
                     <Graph graphData={graphData}/>
