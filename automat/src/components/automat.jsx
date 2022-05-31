@@ -114,7 +114,7 @@ function Automat(){
                 'edges':[...graphData.edges]
             };
             for(let i=0;i<newGraph.edges.length;i++){
-                if(edgeId===newGraph.edges[i].id){
+                if(edgeId===newGraph.edges[i].id){ 
                     newGraph.edges[i]=newEdge;
                 }
             }
@@ -123,13 +123,14 @@ function Automat(){
     }
     const Download=(content)=>{
         const a= new Blob([content],{type:'text/plain;charset=utf-8' });
-        saveAs(a,'image.html');
+        saveAs(a,'image.html'); 
     }
 
+
     const exportSVG=(e)=>{
-        console.log(document.getElementById("svg"));
-        setTextSVG(document.getElementById("svg").innerHTML)
-    }
+        console.log(document.getElementById("svg")); 
+        setTextSVG(document.getElementById("svg").innerHTML) 
+    } 
 
     const ImportData=(e)=>{
         const fileReader= new FileReader();
