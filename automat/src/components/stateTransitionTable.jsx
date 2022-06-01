@@ -28,21 +28,25 @@ const StateTransitionTable=(props)=>{
     return(
         <>
             <b>Prechodova Tabulka</b>
-            <table className="table table-primary">
-                <tr>
-                    <th>Stavy\Znaky</th>
-                    {graphData.graphInf.symbols.map(symbol=>(
-                        <th>{symbol.name}</th>
-                    ))}
-                </tr>
-                {graphData.points.map(point=>(
+            <table className="table table-info table-bordered">
+                <thead>
                     <tr>
-                        <td>{State(point)}</td>
+                        <th>Stavy\Znaky</th>
                         {graphData.graphInf.symbols.map(symbol=>(
-                            <td>{EndPoint(point.id,symbol.name)}</td>
+                            <th>{symbol.name}</th>
                         ))}
                     </tr>
-                ))}
+                </thead>
+                <tbody>
+                    {graphData.points.map(point=>(
+                        <tr>
+                            <td>{State(point)}</td>
+                            {graphData.graphInf.symbols.map(symbol=>(
+                                <td>{EndPoint(point.id,symbol.name)}</td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </>
     );

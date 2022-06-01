@@ -4,21 +4,25 @@ const HandlePoints=(props)=>{
     return (
         <>
             <b>Vrcholy:</b>
-            <table  className="table table-primary">
-                <tr>
-                    <th>ID</th>
-                    <th>[x, y]</th>
-                    <th>Zmenit<small> Stav a Vyznam nejsou povinne</small></th>
-                    <th>Vymaz</th>
-                </tr>
-                {points.map(point=>(
+            <table  className="table table-primary table-hover table-bordered">
+                <thead>
                     <tr>
-                        <td>{point.id}</td>
-                        <td>[{point.x}, {point.y}]</td>
-                        <td><input type="search" placeholder ="X Y Stav Vyznam" onChange={(e)=>props.handlePointChange(point,e.target.value)}/> </td>
-                        <td><button className="btn  btn-sm" onClick={()=>props.onRemovePoint(point.id)}> - </button></td>
-                    </tr>       
-                ))}
+                        <th>ID</th>
+                        <th>[x, y]</th>
+                        <th>Zmenit<small> (Stav a Vyznam nejsou povinne)</small></th>
+                        <th>Vymaz</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {points.map(point=>(
+                        <tr>
+                            <td>{point.id}</td>
+                            <td>[{point.x}, {point.y}]</td>
+                            <td><input type="search" placeholder ="X Y Stav Vyznam" onChange={(e)=>props.handlePointChange(point,e.target.value)}/> </td>
+                            <td><button className="btn btn-primary btn-sm" onClick={()=>props.onRemovePoint(point.id)}> - </button></td>
+                        </tr>       
+                    ))}
+                </tbody>
             </table>
             <br />
             <p>Novy Vrchol:</p>
