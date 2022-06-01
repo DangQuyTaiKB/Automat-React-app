@@ -11,15 +11,15 @@ const HandleEdges=(props)=>{
                     <th>Zmenit</th>
                     <th>Vymaz</th>
                 </tr>
-            {edges.map(edge=>(
-                <tr>
-                    <td>{edge.id}</td>
-                    <td>[{edge.startId}, {edge.endId}]</td>
-                    <td>{edge.symbols}</td>
-                    <td><input type="search" placeholder ="Start End Symbol" onChange={(e)=>props.handleEdgeChange(edge.id,e.target.value)}/></td>
-                    <td><button className="btn btn-sm" onClick={()=>props.onRemoveEdge(edge.id)}>-</button></td>
-                </tr>
-            ))}
+                {edges.map(edge=>(
+                    <tr>
+                        <td>{edge.id}</td>
+                        <td>[{edge.startId}, {edge.endId}]</td>
+                        <td>{edge.symbols}</td>
+                        <td><input type="search" placeholder ="Start End Symbol" onChange={(e)=>props.handleEdgeChange(edge.id,e.target.value)}/></td>
+                        <td><button className="btn btn-sm" onClick={()=>props.onRemoveEdge(edge.id)}>-</button></td>
+                    </tr>
+                ))}
             </table>
             <br />
             <div>&emsp;<button className="btn btn-primary btn-sm" type = "submit">Nova Hrana</button> &emsp;

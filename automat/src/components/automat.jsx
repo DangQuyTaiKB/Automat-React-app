@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 //npm install file-saver
 import {saveAs} from 'file-saver';
 
+import StateTransitionTable from './stateTransitionTable';
 import Graph from './graph'
 import HandlePoints from './handlingOfPoints'
 import HandleEdges from './handlingOfEdges'
@@ -184,9 +185,10 @@ function Automat(){
                     <div>Import .json file: 
                         <input type="file" accept=".json" onChange={ImportData}/>
                     </div>
+                    <StateTransitionTable graphData={graphData}/>
                 </div>
                 <div className="col" id ="svg">
-                    <Graph graphData={graphData}/>
+                    <Graph  graphData={graphData}/>
                 </div>
                 {/* <button onClick={exportSVG}>Export svg</button>
                 <textarea name="" id="text-svg" cols="30" rows="10" value={textSVG} onChange={e => {setTextSVG(e.target.value)}}></textarea> */}
