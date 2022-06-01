@@ -12,8 +12,8 @@
     "graphInf":{
         "name": "Turnstile",
         "symbols":[
-            {"name":"a","label":"Coin"},
-            {"name":"b","label":"Push"}
+            {"id":0,"name":"a","label":"Coin"},
+            {"id":1,"name":"b","label":"Push"}
         ]
     }
 }
