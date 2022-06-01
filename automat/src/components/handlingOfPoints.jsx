@@ -15,7 +15,7 @@ const HandlePoints=(props)=>{
                 <tr>
                     <td>{point.id}</td>
                     <td>[{point.x}, {point.y}]</td>
-                    <td><input type="text" onChange={(e)=>props.handlePointChange(point.id,e.target.value)}/> </td>
+                    <td><input type="search" placeholder ="X Y State" onChange={(e)=>props.handlePointChange(point.id,e.target.value)}/> </td>
                     <td><button className="btn  btn-sm" onClick={()=>props.onRemovePoint(point.id)}> - </button></td>
                 </tr>       
             ))}
