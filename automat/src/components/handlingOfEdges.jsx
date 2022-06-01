@@ -27,10 +27,9 @@ const HandleEdges=(props)=>{
                     ))}
                 </tbody>
             </table>
-            <br />
-            <div>&emsp;<button className="btn btn-primary btn-sm" type = "submit">Nova Hrana</button> &emsp;
+            <label>Nova Hrana: 
                 <input type="search" placeholder ="StartId EndId Znaky" name = "Nova Hrana" onChange={(e)=>props.handleNewEdge(e.target.value)}/>
-            </div>
+            </label>
         </>
     );
 }

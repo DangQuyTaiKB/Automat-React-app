@@ -1,5 +1,6 @@
 import HandlePoints from './handlingOfPoints'
 import HandleEdges from './handlingOfEdges'
+import HandleSymbols from './handlingOfSymbols';
 
 const Handle=(props)=>{
     const graphData=props.graphData;
@@ -7,16 +8,25 @@ const Handle=(props)=>{
         <>
             <HandlePoints 
                 points={graphData.points} 
-                handlePointChange={props.handlePointChange}
                 onRemovePoint={props.onRemovePoint}
+                handlePointChange={props.handlePointChange}
                 handleNewPoint={props.handleNewPoint}
             />
             <br/>
+            <br/>
             <HandleEdges 
                 edges= {graphData.edges}
-                handleEdgeChange={props.handleEdgeChange} 
                 onRemoveEdge={props.onRemoveEdge}
+                handleEdgeChange={props.handleEdgeChange} 
                 handleNewEdge={props.handleNewEdge}
+            />
+            <br/>
+            <br/>
+            <HandleSymbols
+                symbols={graphData.graphInf.symbols}
+                onRemoveSymbol={props.onRemoveSymbol}
+                handleSymbolChange={props.handleSymbolChange}
+                handleNewSymbol={props.handleNewSymbol}
             />
         </>
     );

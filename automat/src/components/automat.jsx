@@ -23,8 +23,8 @@ function Automat(){
         "graphInf":{
             "name": "Example",
             "symbols":[
-                {"name":'a',"label":'meaning of a'},
-                {"name":'b',"label":'meaning of b'}
+                {"id":0,"name":'a',"label":'meaning of a'},
+                {"id":1,"name":'b',"label":'meaning of b'}
             ],
         }
     };
@@ -40,22 +40,26 @@ function Automat(){
         }
         setGraphData(newGraph);
     }
-    const HandleNewPoint=(label)=>{
-        let id=0;
-        if(graphData.points.length!==0){
-            id=graphData.points[graphData.points.length-1].id+1;
-        }
-        const px=200;
-        const py=200;
-        const newPoint={'id':id,'x':px,'y':py,'state':"",'label':label,'meaning':''};
+    const OnRemoveEdge=(removedId)=>{
         const newGraph={
-            'points':[...graphData.points], //nefunguje [...gr,newPoint]
-            'edges':[...graphData.edges],
+            'points':[...graphData.points],
+            'edges':graphData.edges.filter(edge=>(edge.id!==removedId)),
             'graphInf':{...graphData.graphInf}
-        };
-        newGraph.points.push(newPoint);
+        }
         setGraphData(newGraph);
     }
+    const OnRemoveSymbol=(removedId)=>{
+        const newGraph={
+            'points':[...graphData.points],
+            'edges':[...graphData.edges],
+            'graphInf':{
+                "name":graphData.graphInf.name,
+                "symbols":graphData.graphInf.symbols.filter(symbol=>(symbol.id!==removedId))
+            }
+        }
+        setGraphData(newGraph);
+    }
+   
     const HandlePointChange=(p_point, input)=>{
         const px=(input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
         const py=(input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
@@ -76,13 +80,66 @@ function Automat(){
             setGraphData(newGraph);
         }
     }
-
-    const OnRemoveEdge=(removedId)=>{
-        const newGraph={
-            'points':[...graphData.points],
-            'edges':graphData.edges.filter(edge=>((edge.id!==removedId))),
-            'graphInf':{...graphData.graphInf}
+    const HandleEdgeChange=(edgeId, input)=>{
+        const startId= (input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
+        const endId= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
+        const symbols=(input.split(" ")[2]!=="")?input.split(" ")[2]:undefined;
+        if(!isNaN(startId)&&!isNaN(endId)&& symbols!==undefined
+        &&graphData.points.filter(point=>(point.id===startId)).length>0
+        &&graphData.points.filter(point=>(point.id===endId)).length>0
+        ){
+            const newEdge={'id':edgeId,'startId': startId,'endId':endId,'symbols':symbols};
+            const newGraph={
+                'points':[...graphData.points],
+                'edges':[...graphData.edges],
+                'graphInf':{...graphData.graphInf}
+            };
+            for(let i=0;i<newGraph.edges.length;i++){
+                if(edgeId===newGraph.edges[i].id){ 
+                    newGraph.edges[i]=newEdge;
+                }
+            }
+            setGraphData(newGraph);
         }
+    }
+    const HandleSymbolChange=(symbolId,input)=>{
+        const symbolName=(input.split(" ")[0]!=="")?input.split(" ")[0]:undefined;
+        if(symbolName!==undefined){
+            const label=input.split(" ")[1];
+            const newSymbol={"id":symbolId,"name":symbolName,"label":label};
+            const newGraph={
+                'points':[...graphData.points],
+                'edges':[...graphData.edges],
+                'graphInf':{...graphData.graphInf}
+            };
+            //I cant use include, indexOf with list of dictionary
+            const otherSymbols=newGraph.graphInf.symbols.filter(symbol=>(symbol.id!==symbolId));
+            //names of symbols must be unique
+            if(otherSymbols.filter(symbol=>(symbol.name===symbolName)).length===0){
+                for(let i=0;i<newGraph.graphInf.symbols.length;i++){
+                    if(symbolId===newGraph.graphInf.symbols[i].id){
+                        newGraph.graphInf.symbols[i]=newSymbol;
+                    }
+                }
+            }
+            setGraphData(newGraph);
+        }
+    }
+
+    const HandleNewPoint=(label)=>{
+        let id=0;
+        if(graphData.points.length!==0){
+            id=graphData.points[graphData.points.length-1].id+1;
+        }
+        const px=200;
+        const py=200;
+        const newPoint={'id':id,'x':px,'y':py,'state':"",'label':label,'meaning':''};
+        const newGraph={
+            'points':[...graphData.points], //nefunguje [...gr,newPoint]
+            'edges':[...graphData.edges],
+            'graphInf':{...graphData.graphInf}
+        };
+        newGraph.points.push(newPoint);
         setGraphData(newGraph);
     }
     const HandleNewEdge=(input)=>{
@@ -119,39 +176,31 @@ function Automat(){
             }
         }
     }
-    const HandleEdgeChange=(edgeId, input)=>{
-        const startId= (input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
-        const endId= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
-        const symbols=(input.split(" ")[2]!=="")?input.split(" ")[2]:undefined;
-        if(!isNaN(startId)&&!isNaN(endId)&& symbols!==undefined
-        &&graphData.points.filter(point=>(point.id===startId)).length>0
-        &&graphData.points.filter(point=>(point.id===endId)).length>0
-        ){
-            const newEdge={'id':edgeId,'startId': startId,'endId':endId,'symbols':symbols};
-            const newGraph={
-                'points':[...graphData.points],
-                'edges':[...graphData.edges],
-                'graphInf':{...graphData.graphInf}
-            };
-            for(let i=0;i<newGraph.edges.length;i++){
-                if(edgeId===newGraph.edges[i].id){ 
-                    newGraph.edges[i]=newEdge;
-                }
-            }
-            setGraphData(newGraph);
+    const HandleNewSymbol=()=>{
+        let id=0;
+        if(graphData.graphInf.symbols.length!==0){
+            id=graphData.graphInf.symbols[graphData.graphInf.symbols.length-1].id+1;
         }
+        const nameOfLastSymbol=graphData.graphInf.symbols[graphData.graphInf.symbols.length-1].name
+        const name=String.fromCharCode(nameOfLastSymbol.charCodeAt(0)+1);
+        const newSymbol={'id':id,"name":name,'label':''};
+        const newGraph={
+            'points':[...graphData.points], 
+            'edges':[...graphData.edges],
+            'graphInf':{...graphData.graphInf}
+        };
+        newGraph.graphInf.symbols.push(newSymbol);
+        setGraphData(newGraph);
     }
+    
     const Download=(content)=>{
         const a= new Blob([content],{type:'text/plain;charset=utf-8' });
         saveAs(a,'image.html'); 
     }
-
-
     // const exportSVG=(e)=>{
     //     console.log(document.getElementById("svg")); 
     //     setTextSVG(document.getElementById("svg").innerHTML) 
     // } 
-
     const ImportData=(e)=>{
         const fileReader= new FileReader();
         fileReader.readAsText(e.target.files[0],"UTF-8");
@@ -173,24 +222,32 @@ function Automat(){
                 <br />
                     <Handle
                         graphData={graphData}
-                        handlePointChange={HandlePointChange}
+
                         onRemovePoint={OnRemovePoint}
-                        handleNewPoint={HandleNewPoint}
-                        handleEdgeChange={HandleEdgeChange} 
                         onRemoveEdge={OnRemoveEdge}
+                        onRemoveSymbol={OnRemoveSymbol}
+
+                        handlePointChange={HandlePointChange}
+                        handleEdgeChange={HandleEdgeChange}
+                        handleSymbolChange={HandleSymbolChange}
+
+                        handleNewPoint={HandleNewPoint}
                         handleNewEdge={HandleNewEdge}
+                        handleNewSymbol={HandleNewSymbol}
                     />
-                    <br />
-                    <button className='btn btn-primary btn-sm' onClick={()=>Download(document.getElementById("svg").innerHTML)}>Download</button>
-                    <br />
-                    <br />
-                    <div>Import .json file: 
-                        <input type="file" accept=".json" onChange={ImportData}/>
-                    </div>
-                    <StateTransitionTable graphData={graphData}/>
                 </div>
-                <div className="col" id ="svg">
-                    <Graph graphData={graphData}/>
+                <div className="col" >
+                    <div id ="svg">
+                        <Graph graphData={graphData}/>
+                    </div>
+                    <br/>
+                    <StateTransitionTable graphData={graphData}/>
+                    <button className='btn btn-primary btn-lg' onClick={()=>Download(document.getElementById("svg").innerHTML)}>Download</button>
+                    <br />
+                    <br />
+                    <label>Import file.json: 
+                        <input type="file" accept=".json" onChange={ImportData}/>
+                    </label>
                 </div>
                 {/* <button onClick={exportSVG}>Export svg</button>
                 <textarea name="" id="text-svg" cols="30" rows="10" value={textSVG} onChange={e => {setTextSVG(e.target.value)}}></textarea> */}

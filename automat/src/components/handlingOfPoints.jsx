@@ -24,8 +24,7 @@ const HandlePoints=(props)=>{
                     ))}
                 </tbody>
             </table>
-            <br />
-            <p>Novy Vrchol:</p>
+            <label>Novy Vrchol:</label>
             <select onChange={(e)=>{props.handleNewPoint(e.target.value)}}>
                 <option value="commonState">Bezny stav</option>
                 <option value="initialState">Pocatecni stav</option>
