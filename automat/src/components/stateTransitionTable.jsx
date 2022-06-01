@@ -5,24 +5,24 @@ const StateTransitionTable=(props)=>{
         let isExisted=false;
         for(let i=0;i<graphData.edges.length;++i){
             if(graphData.edges[i].startId===startId&&graphData.edges[i].symbols.split(",").includes(symbol)){
-                result= result+graphData.edges[i].endId+",";
+                result= result+graphData.points.filter(point=>(point.id===graphData.edges[i].endId))[0].state+",";
                 isExisted=true;
             }
         }
         if(!isExisted){
-            result=NaN;
+            result="Prazdna mnozina";
         }
         return result;
     }
-    const PointId=(point)=>{
+    const State=(point)=>{
         if(point.label==='initialState'){
-            return "->"+point.id;
+            return "->"+point.state;
         }
         if(point.label==='finalState'){
-            return "<-"+point.id;
+            return "<-"+point.state;
         }
         if(point.label==='commonState'){
-            return point.id;
+            return point.state;
         }
     }
     return(
@@ -37,7 +37,7 @@ const StateTransitionTable=(props)=>{
                 </tr>
                 {graphData.points.map(point=>(
                     <tr>
-                        <td>{PointId(point)}</td>
+                        <td>{State(point)}</td>
                         {graphData.graphInf.symbols.map(symbol=>(
                             <td>{EndPoint(point.id,symbol.name)}</td>
                         ))}

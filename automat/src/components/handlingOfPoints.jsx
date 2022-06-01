@@ -1,4 +1,5 @@
 const HandlePoints=(props)=>{
+    
     const points=props.points;
     return (
         <>
@@ -7,20 +8,25 @@ const HandlePoints=(props)=>{
                 <tr>
                     <th>ID</th>
                     <th>[x, y]</th>
-                    <th>Zmenit</th>
+                    <th>Zmenit<small> Stav a Vyznam nejsou povinne</small></th>
                     <th>Vymaz</th>
                 </tr>
                 {points.map(point=>(
                     <tr>
                         <td>{point.id}</td>
                         <td>[{point.x}, {point.y}]</td>
-                        <td><input type="search" placeholder ="X Y State" onChange={(e)=>props.handlePointChange(point.id,e.target.value)}/> </td>
+                        <td><input type="search" placeholder ="X Y Stav Vyznam" onChange={(e)=>props.handlePointChange(point,e.target.value)}/> </td>
                         <td><button className="btn  btn-sm" onClick={()=>props.onRemovePoint(point.id)}> - </button></td>
                     </tr>       
                 ))}
             </table>
             <br />
-            &emsp;<button className="btn btn-primary btn-sm" onClick={props.handleNewPoint}>Novy Vrchol</button>
+            <p>Novy Vrchol:</p>
+            <select onChange={(e)=>{props.handleNewPoint(e.target.value)}}>
+                <option value="commonState">Bezny stav</option>
+                <option value="initialState">Pocatecni stav</option>
+                <option value="finalState">Koncovy stav</option>
+            </select>
         </>
     );
 

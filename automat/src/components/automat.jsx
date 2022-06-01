@@ -2,18 +2,17 @@ import React, {useState} from 'react';
 //npm install file-saver
 import {saveAs} from 'file-saver';
 
-import StateTransitionTable from './stateTransitionTable';
 import Graph from './graph'
-import HandlePoints from './handlingOfPoints'
-import HandleEdges from './handlingOfEdges'
+import StateTransitionTable from './stateTransitionTable';
+import Handle from './handling';
 
 function Automat(){
     const initialData={
         'points':[
-            {'id':0,'x':300,'y':400, 'state':'A', 'label':'initialState'},
-            {'id':1,'x':600,'y':400, 'state':'B', 'label':'commonState'},
-            {'id':2,'x':600,'y':100, 'state':'C', 'label':'commonState'},
-            {'id':3,'x':300,'y':100, 'state':'D', 'label':'finalState'},
+            {'id':0,'x':300,'y':400, 'state':'q0', 'label':'initialState', 'meaning':'meaning of q0'},
+            {'id':1,'x':600,'y':400, 'state':'q1', 'label':'commonState','meaning':'meaning of q1'},
+            {'id':2,'x':600,'y':100, 'state':'q2', 'label':'commonState','meaning':'meaning of q2'},
+            {'id':3,'x':300,'y':100, 'state':'q3', 'label':'finalState','meaning':'meaning of q3'},
         ],
         'edges':[
             {'id': 0,'startId':0,'endId':1,'symbols':'a'},
@@ -24,9 +23,9 @@ function Automat(){
         "graphInf":{
             "name": "Example",
             "symbols":[
-                {"name":'a',"label":''},
-                {"name":'b',"label":''}
-            ]
+                {"name":'a',"label":'meaning of a'},
+                {"name":'b',"label":'meaning of b'}
+            ],
         }
     };
     const [graphData,setGraphData]=useState(initialData);
@@ -41,38 +40,43 @@ function Automat(){
         }
         setGraphData(newGraph);
     }
-    const HandleNewPoint=()=>{
-        const id=graphData.points[graphData.points.length-1].id+1;
+    const HandleNewPoint=(label)=>{
+        let id=0;
+        if(graphData.points.length!==0){
+            id=graphData.points[graphData.points.length-1].id+1;
+        }
         const px=200;
         const py=200;
-        const newPoint={'id':id,'x':px,'y':py,'state':""};
+        const newPoint={'id':id,'x':px,'y':py,'state':"",'label':label,'meaning':''};
         const newGraph={
-            'points':[...graphData.points,newPoint],
+            'points':[...graphData.points], //nefunguje [...gr,newPoint]
             'edges':[...graphData.edges],
             'graphInf':{...graphData.graphInf}
         };
+        newGraph.points.push(newPoint);
         setGraphData(newGraph);
     }
-    const HandlePointChange=(pointId, input)=>{
+    const HandlePointChange=(p_point, input)=>{
         const px=(input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
         const py=(input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
         if(!isNaN(px)&&!isNaN(py)){
             const state=input.split(" ")[2];
-            const newPoint={'id':pointId,'x':px,'y':py,'state':state};
+            const meaning=input.split(" ")[3];
+            const newPoint={'id':p_point.id,'x':px,'y':py,'state':state,'label':p_point.label,'meaning':meaning};
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
                 'graphInf':{...graphData.graphInf}
             };
             for(let i=0;i<newGraph.points.length;i++){
-                if(pointId===newGraph.points[i].id){
+                if(p_point.id===newGraph.points[i].id){
                     newGraph.points[i]=newPoint;
                 }
             }
             setGraphData(newGraph);
         }
     }
-    
+
     const OnRemoveEdge=(removedId)=>{
         const newGraph={
             'points':[...graphData.points],
@@ -82,25 +86,27 @@ function Automat(){
         setGraphData(newGraph);
     }
     const HandleNewEdge=(input)=>{
-        const id=(input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
-        const startIndex= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
-        const endIndex= (input.split(" ")[2]!=="")?Number(input.split(" ")[2]):NaN;
-        const symbols=(input.split(" ")[3]!=="")?input.split(" ")[3]:undefined;
+        let id=0;
+        if(graphData.edges.length!==0){
+            id=graphData.edges[graphData.edges.length-1].id+1;
+        }
+        const startId= (input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
+        const endId= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
+        const symbols=(input.split(" ")[2]!=="")?input.split(" ")[2]:undefined;
         
-        if(!isNaN(id)&&!isNaN(startIndex)&&!isNaN(endIndex)&& symbols!==undefined
-        &&graphData.points.filter(point=>(point.id===startIndex)).length>0
-        &&graphData.points.filter(point=>(point.id===endIndex)).length>0
+        if(!isNaN(startId)&&!isNaN(endId)&& symbols!==undefined
+        &&graphData.points.filter(point=>(point.id===startId)).length>0
+        &&graphData.points.filter(point=>(point.id===endId)).length>0
         ){
-            const newEdge={'id':id,'startId': startIndex,'endId':endIndex,'symbols':symbols};
+            const newEdge={'id':id,'startId': startId,'endId':endId,'symbols':symbols};
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
                 'graphInf':{...graphData.graphInf}
             };
-            if((graphData.edges.filter(edge=>(edge.id===id)).length>0)
-            ||(graphData.edges.filter(edge=>(edge.startId===startIndex&&edge.endId===endIndex)).length>0)){
+            if(graphData.edges.filter(edge=>(edge.startId===startId&&edge.endId===endId)).length>0){
                 for(let i=0;i<newGraph.edges.length;i++){
-                    if(id===newGraph.edges[i].id||(startIndex===newGraph.edges[i].startId&&endIndex===newGraph.edges[i].endId) ){
+                    if(startId===newGraph.edges[i].startId&&endId===newGraph.edges[i].endId){
                         newGraph.edges[i]=newEdge;
                         break;
                     }
@@ -114,14 +120,14 @@ function Automat(){
         }
     }
     const HandleEdgeChange=(edgeId, input)=>{
-        const startIndex= (input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
-        const endIndex= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
-        
-        if(!isNaN(startIndex)&&!isNaN(endIndex)
-        &&graphData.points.filter(point=>(point.id===startIndex)).length>0
-        &&graphData.points.filter(point=>(point.id===endIndex)).length>0){
-            const symbols=input.split(" ")[2];
-            const newEdge={'id':edgeId,'startId': startIndex,'endId':endIndex,'symbols':symbols};
+        const startId= (input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
+        const endId= (input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
+        const symbols=(input.split(" ")[2]!=="")?input.split(" ")[2]:undefined;
+        if(!isNaN(startId)&&!isNaN(endId)&& symbols!==undefined
+        &&graphData.points.filter(point=>(point.id===startId)).length>0
+        &&graphData.points.filter(point=>(point.id===endId)).length>0
+        ){
+            const newEdge={'id':edgeId,'startId': startId,'endId':endId,'symbols':symbols};
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
@@ -164,16 +170,12 @@ function Automat(){
             </div>
             <div className ="row">
                 <div className="col">
-                    <br/>
-                    <HandlePoints 
-                        points={graphData.points} 
+                <br />
+                    <Handle
+                        graphData={graphData}
                         handlePointChange={HandlePointChange}
                         onRemovePoint={OnRemovePoint}
                         handleNewPoint={HandleNewPoint}
-                    />
-                    <br/>
-                    <HandleEdges 
-                        edges= {graphData.edges}
                         handleEdgeChange={HandleEdgeChange} 
                         onRemoveEdge={OnRemoveEdge}
                         handleNewEdge={HandleNewEdge}
@@ -188,7 +190,7 @@ function Automat(){
                     <StateTransitionTable graphData={graphData}/>
                 </div>
                 <div className="col" id ="svg">
-                    <Graph  graphData={graphData}/>
+                    <Graph graphData={graphData}/>
                 </div>
                 {/* <button onClick={exportSVG}>Export svg</button>
                 <textarea name="" id="text-svg" cols="30" rows="10" value={textSVG} onChange={e => {setTextSVG(e.target.value)}}></textarea> */}
@@ -197,4 +199,6 @@ function Automat(){
     );
 }
 
-export default Automat
+export default Automat;
+
+

@@ -1,7 +1,7 @@
 {
     "points":[
-        {"id":0,"x":100,"y":300,"state":"Locked","label":"initialState"},
-        {"id":1,"x":600,"y":300,"state":"Unlocked","label":"finalState"}
+        {"id":0,"x":100,"y":300,"state":"q0","label":"initialState","meaning":"Locked"},
+        {"id":1,"x":600,"y":300,"state":"q1","label":"finalState","meaning":"Unlocked"}
     ],
     "edges":[
         {"id":0,"startId":0,"endId":1,"symbols":"a"},
