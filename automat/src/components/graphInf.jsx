@@ -9,7 +9,7 @@ const GraphInf=(props)=>{
             <text x={x} y={y} fill="red">Automat: {graphInf.name}</text>
             {points.map(point=>{
                 y+=distance;
-                return <text x={x} y={y} fill="red">State {point.id}: {point.state}</text>
+                return <text x={x} y={y} fill="red">{point.label} {point.id}: {point.state}</text>
             })}
             {graphInf.symbols.map(symbol=>{
                 y+=distance;

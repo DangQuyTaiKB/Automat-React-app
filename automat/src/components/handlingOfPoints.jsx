@@ -7,7 +7,6 @@ const HandlePoints=(props)=>{
                 <tr>
                     <th>ID</th>
                     <th>[x, y]</th>
-                    {/* <th >Stav</th> */}
                     <th>Zmenit</th>
                     <th>Vymaz</th>
                 </tr>
@@ -16,7 +15,6 @@ const HandlePoints=(props)=>{
                 <tr>
                     <td>{point.id}</td>
                     <td>[{point.x}, {point.y}]</td>
-                    {/* <td>{point.state}</td> */}
                     <td><input type="text" onChange={(e)=>props.handlePointChange(point.id,e.target.value)}/> </td>
                     <td><button className="btn  btn-sm" onClick={()=>props.onRemovePoint(point.id)}> - </button></td>
                 </tr>       

@@ -9,10 +9,10 @@ import HandleEdges from './handlingOfEdges'
 function Automat(){
     const initialData={
         'points':[
-            {'id':0,'x':300,'y':400, 'state':'A'},
-            {'id':1,'x':600,'y':400, 'state':'B'},
-            {'id':2,'x':600,'y':100, 'state':'C'},
-            {'id':3,'x':300,'y':100, 'state':'D'},
+            {'id':0,'x':300,'y':400, 'state':'A', 'label':'initialState'},
+            {'id':1,'x':600,'y':400, 'state':'B', 'label':'commonState'},
+            {'id':2,'x':600,'y':100, 'state':'C', 'label':'commonState'},
+            {'id':3,'x':300,'y':100, 'state':'D', 'label':'finalState'},
         ],
         'edges':[
             {'id': 0,'startId':0,'endId':1,'symbols':'a'},
