@@ -5,7 +5,7 @@ const Points=(props)=>{
     return (
         <>
             {points.map(point=>(<Point 
-                id={point.id} 
+                state={point.state} 
                 x={point.x} 
                 y={point.y}
                 label={point.label}

@@ -40,7 +40,7 @@ const Edge=(props)=>{
     if(label==='smycka'){
         //loop
         return<>
-            <ellipse cx={a.x} cy={a.y-radius} rx={2*radius} ry={radius} stroke="black" stroke-width="2" fill="none"/>
+            <ellipse cx={a.x} cy={a.y-radius} rx={2*radius} ry={radius} stroke="black" strokeWidth="2" fill="none"/>
             <polygon 
                 points={[
                     [a.x,a.y-2*radius+h],

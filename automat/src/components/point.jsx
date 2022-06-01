@@ -1,7 +1,7 @@
 const Point=(props)=>{
     const x=props.x;
     const y=props.y
-    const id=props.id;
+    const state=props.state;
     const label=props.label;
 
     const radius= 20;
@@ -20,14 +20,14 @@ const Point=(props)=>{
             />
             <circle cx= {x} cy={y} r={radius} stroke="black" strokeWidth="2" fill="white"></circle>
             
-            <text x={x-5} y={y+5} fill="red">{id}</text>
+            <text x={x-5} y={y+5} fill="red">{state}</text>
         </>
     }
     if(label==='commonState'){
         //regular state
         return <> 
             <circle cx= {x} cy={y} r={radius} stroke="black" strokeWidth="2" fill="white"></circle>
-            <text x={x-5} y={y+5} fill="red">{id}</text>
+            <text x={x-5} y={y+5} fill="red">{state}</text>
         </>
     }
     if(label==='finalState'){
@@ -35,7 +35,7 @@ const Point=(props)=>{
         return <> 
             <circle cx= {x} cy={y} r={radius} stroke="black" strokeWidth="2" fill="white"></circle>
             <circle cx= {x} cy={y} r={radius-5} stroke="black" strokeWidth="2" fill="white"></circle>
-            <text x={x-5} y={y+5} fill="red">{id}</text>
+            <text x={x-5} y={y+5} fill="red">{state}</text>
         </>
     }
 }

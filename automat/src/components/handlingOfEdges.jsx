@@ -10,7 +10,7 @@ const HandleEdges=(props)=>{
                     <th>ID</th>
                     <th>[S,E]</th>
                     <th>Znaky</th>
-                    <th>Zmenit</th>
+                    <th>Zmenit<small> Znaky jsou oddeleny carkami</small></th>
                     <th>Vymaz</th>
                 </tr>
                 {edges.map(edge=>(
