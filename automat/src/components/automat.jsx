@@ -19,7 +19,14 @@ function Automat(){
             {'id':1,'startId':1,'endId':2,'symbols':'b'},
             {'id':2,'startId':2,'endId':1,'symbols':'b'},
             {'id':3,'startId':3,'endId':3,'symbols':'b'}
-        ]
+        ],
+        "graphInf":{
+            "name": "Example",
+            "symbols":[
+                {"name":'a',"label":''},
+                {"name":'b',"label":''}
+            ]
+        }
     };
     const [graphData,setGraphData]=useState(initialData);
     // const [textSVG, setTextSVG]=useState("");
@@ -28,7 +35,8 @@ function Automat(){
     const OnRemovePoint= (removedId)=>{
         const newGraph={
             'points': graphData.points.filter(point=>(point.id!==removedId)),
-            'edges': graphData.edges.filter(edge=>((edge.startId!==removedId)&&(edge.endId!==removedId)))
+            'edges': graphData.edges.filter(edge=>((edge.startId!==removedId)&&(edge.endId!==removedId))),
+            'graphInf':{...graphData.graphInf}
         }
         setGraphData(newGraph);
     }
@@ -39,7 +47,8 @@ function Automat(){
         const newPoint={'id':id,'x':px,'y':py,'state':""};
         const newGraph={
             'points':[...graphData.points,newPoint],
-            'edges':[...graphData.edges]
+            'edges':[...graphData.edges],
+            'graphInf':{...graphData.graphInf}
         };
         setGraphData(newGraph);
     }
@@ -51,7 +60,8 @@ function Automat(){
             const newPoint={'id':pointId,'x':px,'y':py,'state':state};
             const newGraph={
                 'points':[...graphData.points],
-                'edges':[...graphData.edges]
+                'edges':[...graphData.edges],
+                'graphInf':{...graphData.graphInf}
             };
             for(let i=0;i<newGraph.points.length;i++){
                 if(pointId===newGraph.points[i].id){
@@ -65,7 +75,8 @@ function Automat(){
     const OnRemoveEdge=(removedId)=>{
         const newGraph={
             'points':[...graphData.points],
-            'edges':graphData.edges.filter(edge=>((edge.id!==removedId)))
+            'edges':graphData.edges.filter(edge=>((edge.id!==removedId))),
+            'graphInf':{...graphData.graphInf}
         }
         setGraphData(newGraph);
     }
@@ -82,12 +93,13 @@ function Automat(){
             const newEdge={'id':id,'startId': startIndex,'endId':endIndex,'symbols':symbols};
             const newGraph={
                 'points':[...graphData.points],
-                'edges':[...graphData.edges]
+                'edges':[...graphData.edges],
+                'graphInf':{...graphData.graphInf}
             };
             if((graphData.edges.filter(edge=>(edge.id===id)).length>0)
             ||(graphData.edges.filter(edge=>(edge.startId===startIndex&&edge.endId===endIndex)).length>0)){
                 for(let i=0;i<newGraph.edges.length;i++){
-                    if(id===newGraph.edges[i].id){
+                    if(id===newGraph.edges[i].id||(startIndex===newGraph.edges[i].startId&&endIndex===newGraph.edges[i].endId) ){
                         newGraph.edges[i]=newEdge;
                         break;
                     }
@@ -111,7 +123,8 @@ function Automat(){
             const newEdge={'id':edgeId,'startId': startIndex,'endId':endIndex,'symbols':symbols};
             const newGraph={
                 'points':[...graphData.points],
-                'edges':[...graphData.edges]
+                'edges':[...graphData.edges],
+                'graphInf':{...graphData.graphInf}
             };
             for(let i=0;i<newGraph.edges.length;i++){
                 if(edgeId===newGraph.edges[i].id){ 
@@ -151,16 +164,6 @@ function Automat(){
             <div className ="row">
                 <div className="col">
                     <br/>
-                    <b>Vrcholy:</b>
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>[x, y]</th>
-                            <th >Stav</th>
-                            <th>Zmenit</th>
-                            <th>Vymaz</th>
-                        </tr>
-                    </table>
                     <HandlePoints 
                         points={graphData.points} 
                         handlePointChange={HandlePointChange}
@@ -168,16 +171,6 @@ function Automat(){
                         handleNewPoint={HandleNewPoint}
                     />
                     <br/>
-                    <b>Hrany:</b>
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>[S,E]</th>
-                            <th>Znaky</th>
-                            <th>Zmenit</th>
-                            <th>Vymaz</th>
-                        </tr>
-                    </table>
                     <HandleEdges 
                         edges= {graphData.edges}
                         handleEdgeChange={HandleEdgeChange} 

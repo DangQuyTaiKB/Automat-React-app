@@ -1,5 +1,6 @@
 import Edges from './edges'
 import Points from './points'
+import GraphInf from './graphInf';
 
 const Graph=(props)=>{
     const graphData=props.graphData;
@@ -11,6 +12,10 @@ const Graph=(props)=>{
                 points={graphData.points}
             />
             <Points 
+                points={graphData.points}
+            />
+            <GraphInf
+                graphInf={graphData.graphInf}
                 points={graphData.points}
             />
         </svg>
