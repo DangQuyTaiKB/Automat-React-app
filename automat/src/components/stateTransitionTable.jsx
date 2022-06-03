@@ -32,7 +32,7 @@ const StateTransitionTable=(props)=>{
     }
     return(
         <>
-            <b>Prechodova Tabulka</b>
+            <b>5. Přechodová Tabulka</b>
             <table className="table table-info table-bordered">
                 <thead>
                     <tr>

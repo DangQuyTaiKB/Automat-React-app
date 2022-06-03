@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {saveAs} from 'file-saver';
 
 import Graph from './graph'
-//import WordTest from './wordTest';
+import WordTest from './wordTest';
 import StateTransitionTable from './stateTransitionTable';
 import Handle from './handling';
 
@@ -244,12 +244,12 @@ function Automat(){
                         <Graph graphData={graphData}/>
                     </div>
                     <br/>
-                    {/* <WordTest graphData={graphData}/>
-                    <br/> */}
+                    <WordTest graphData={graphData}/>
+                    <br/>
                     <StateTransitionTable graphData={graphData}/>
                     <button className='btn btn-primary btn-lg' onClick={()=>Download(document.getElementById("svg").innerHTML)}>Download</button>
                     <br />
-                    <br />
+                    <br/>
                     <label>Import file.json: 
                         <input type="file" accept=".json" onChange={ImportData}/>
                     </label>
