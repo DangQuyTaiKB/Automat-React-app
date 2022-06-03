@@ -1,18 +1,23 @@
 const StateTransitionTable=(props)=>{
     const graphData=props.graphData;
-    const EndPoint=(startId,symbol)=>{
-        let result="";
+    const NextStates=(startId,symbol)=>{
+        let nextStates="";
         let isExisted=false;
+        //ham nay co the bieu dien dc ca automat nedeterministicky
         for(let i=0;i<graphData.edges.length;++i){
+            //Znaky jsou oddeleny carkami
             if(graphData.edges[i].startId===startId&&graphData.edges[i].symbols.split(",").includes(symbol)){
-                result= result+graphData.points.filter(point=>(point.id===graphData.edges[i].endId))[0].state+",";
+                nextStates= nextStates+","+graphData.points.filter(point=>(point.id===graphData.edges[i].endId))[0].state;
                 isExisted=true;
             }
         }
         if(!isExisted){
-            result="Prazdna mnozina";
+            return "Prazdna mnozina";
         }
-        return result;
+        else{
+            return nextStates.slice(1);
+        }
+        
     }
     const State=(point)=>{
         if(point.label==='initialState'){
@@ -42,7 +47,7 @@ const StateTransitionTable=(props)=>{
                         <tr>
                             <td>{State(point)}</td>
                             {graphData.graphInf.symbols.map(symbol=>(
-                                <td>{EndPoint(point.id,symbol.name)}</td>
+                                <td>{NextStates(point.id,symbol.name)}</td>
                             ))}
                         </tr>
                     ))}

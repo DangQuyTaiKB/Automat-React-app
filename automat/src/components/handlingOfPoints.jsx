@@ -3,13 +3,15 @@ const HandlePoints=(props)=>{
     const points=props.points;
     return (
         <>
-            <b>Vrcholy:</b>
+            <b>1. Vrcholy:</b>
+            <em> (Stav a Vyznam nejsou povinne)</em>
             <table  className="table table-primary table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Stav</th>
                         <th>[x, y]</th>
-                        <th>Zmenit<small> (Stav a Vyznam nejsou povinne)</small></th>
+                        <th>Zmen</th>
                         <th>Vymaz</th>
                     </tr>
                 </thead>
@@ -17,6 +19,7 @@ const HandlePoints=(props)=>{
                     {points.map(point=>(
                         <tr>
                             <td>{point.id}</td>
+                            <td>{point.state}</td>
                             <td>[{point.x}, {point.y}]</td>
                             <td><input type="search" placeholder ="X Y Stav Vyznam" onChange={(e)=>props.handlePointChange(point,e.target.value)}/> </td>
                             <td><button className="btn btn-primary btn-sm" onClick={()=>props.onRemovePoint(point.id)}> - </button></td>
@@ -25,7 +28,8 @@ const HandlePoints=(props)=>{
                 </tbody>
             </table>
             <label>Novy Vrchol:</label>
-            <select onChange={(e)=>{props.handleNewPoint(e.target.value)}}>
+            <select value="abc" onChange={(e)=>{props.handleNewPoint(e.target.value)}}>
+                <option value="">Zvolit jaky stav</option>
                 <option value="commonState">Bezny stav</option>
                 <option value="initialState">Pocatecni stav</option>
                 <option value="finalState">Koncovy stav</option>
