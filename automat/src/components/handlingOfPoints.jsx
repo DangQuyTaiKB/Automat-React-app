@@ -1,3 +1,5 @@
+import CloseButton from 'react-bootstrap/CloseButton'
+
 const HandlePoints=(props)=>{
     
     const points=props.points;
@@ -22,7 +24,7 @@ const HandlePoints=(props)=>{
                             <td>{point.state}</td>
                             <td>[{point.x}, {point.y}]</td>
                             <td><input type="search" placeholder ="X Y Stav Vyznam" onChange={(e)=>props.handlePointChange(point,e.target.value)}/> </td>
-                            <td><button className="btn btn-primary btn-sm" onClick={()=>props.onRemovePoint(point.id)}> - </button></td>
+                            <td><CloseButton className="btn btn-primary btn-sm" onClick={()=>props.onRemovePoint(point.id)}/></td>
                         </tr>       
                     ))}
                 </tbody>

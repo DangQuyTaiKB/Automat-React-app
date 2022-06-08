@@ -1,3 +1,5 @@
+import CloseButton from 'react-bootstrap/CloseButton'
+
 const HandleSymbols=(props)=>{
     const symbols=props.symbols;
     return (
@@ -9,7 +11,7 @@ const HandleSymbols=(props)=>{
                         <th>ID</th>
                         <th>Znak</th>
                         <th>Vyznam</th>
-                        <th>Zmenit</th>
+                        <th>Zmen</th>
                         <th>Vymaz</th>
                     </tr>
                 </thead>
@@ -20,7 +22,7 @@ const HandleSymbols=(props)=>{
                             <td>{symbol.name}</td>
                             <td>{symbol.label}</td>
                             <td><input type="search" placeholder ="Znak Vyznam" onChange={(e)=>props.handleSymbolChange(symbol.id,e.target.value)}/> </td>
-                            <td><button className="btn btn-primary btn-sm" onClick={()=>props.onRemoveSymbol(symbol.id)}> - </button></td>
+                            <td><CloseButton className="btn btn-primary btn-sm" onClick={()=>props.onRemoveSymbol(symbol.id)}/></td>
                         </tr>       
                     ))}
                 </tbody>

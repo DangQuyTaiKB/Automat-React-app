@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 //npm install file-saver
 import {saveAs} from 'file-saver';
 
+
+
 import Graph from './graph'
 import WordTest from './wordTest';
 import StateTransitionTable from './stateTransitionTable';
@@ -217,12 +219,9 @@ function Automat(){
 
     return(
         <>
-            <div className="container-fluid p-2 bg-primary text-white">
-                <h1 className="text-center">My Automat Graph Editor</h1>
-            </div>
             <div className ="row">
                 <div className="col">
-                <br />
+                    <br />
                     <Handle
                         graphData={graphData}
 
@@ -240,6 +239,7 @@ function Automat(){
                     />
                 </div>
                 <div className="col" >
+                    <br/>
                     <div id ="svg">
                         <Graph graphData={graphData}/>
                     </div>
