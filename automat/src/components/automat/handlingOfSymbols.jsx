@@ -1,11 +1,11 @@
-import CloseButton from 'react-bootstrap/CloseButton'
+import {CloseButton,Table} from 'react-bootstrap'
 
 const HandleSymbols=(props)=>{
     const symbols=props.symbols;
     return (
         <>
             <b>3. Znaky (signaly/symboly):</b>
-            <table  className="table table-primary table-hover table-bordered">
+            <Table variant='primary' hover bordered>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -26,7 +26,7 @@ const HandleSymbols=(props)=>{
                         </tr>       
                     ))}
                 </tbody>
-            </table>
+            </Table>
             <button className="btn btn-primary btn-sm" onClick={()=>props.handleNewSymbol()}>Novy Znak</button>
             <br/>
             <em>- Pokud změníme symbol, jehož název již existuje, změna nejde.</em>

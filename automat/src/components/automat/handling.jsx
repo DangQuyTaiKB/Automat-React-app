@@ -13,14 +13,12 @@ const Handle=(props)=>{
                 handleNewPoint={props.handleNewPoint}
             />
             <br/>
-            <br/>
             <HandleEdges 
                 edges= {graphData.edges}
                 onRemoveEdge={props.onRemoveEdge}
                 handleEdgeChange={props.handleEdgeChange} 
                 handleNewEdge={props.handleNewEdge}
             />
-            <br/>
             <br/>
             <HandleSymbols
                 symbols={graphData.graphInf.symbols}

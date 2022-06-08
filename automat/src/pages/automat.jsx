@@ -2,12 +2,10 @@ import React, {useState} from 'react';
 //npm install file-saver
 import {saveAs} from 'file-saver';
 
-
-
-import Graph from './graph'
-import WordTest from './wordTest';
-import StateTransitionTable from './stateTransitionTable';
-import Handle from './handling';
+import Graph from '../components/automat/graph'
+import WordTest from '../components/automat/wordTest';
+import StateTransitionTable from '../components/automat/stateTransitionTable';
+import Handle from '../components/automat/handling';
 
 
 function Automat(){

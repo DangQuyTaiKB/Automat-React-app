@@ -1,29 +1,26 @@
 import './App.css';
-import logo from './logo.svg';
-import Automat from "./components/automat"
+import { useState } from 'react';
 
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
+import NavbarComponent from './components/common/navbar';
+
+import Home from './pages/home';
+import Automat from './pages/automat';
+import Documents from './pages/documents';
+import ContactUs from "./pages/contactUs";
 
 function App() {
+  const [page,setPage]=useState("automat");
+  const HandleSelect=(key)=>{
+    setPage(key);
+  }
   return(
-  <>
-    <Navbar expend="lg" bg="dark" variant="dark" sticky="top">
-      <Container>
-        <Navbar.Brand href="#home"> 
-          <img src={logo} width="40" height="40"  alt="React logo"/>
-          TH
-        </Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">About Us</Nav.Link>
-          <Nav.Link href="#pricing">Contact Us</Nav.Link>
-        </Nav>
-      </Container>
-    </Navbar>
-    <Automat/>;
-  </>
+    <>
+      <NavbarComponent handleSelect={HandleSelect}/>
+      {page==="automat"?<Automat/>:<></>}
+      {page==="contactUs"?<ContactUs/>:<></>}
+      {page==="home"?<Home/>:<></>}
+      {page==="documents"?<Documents/>:<></>}
+    </>
   );
 }
 

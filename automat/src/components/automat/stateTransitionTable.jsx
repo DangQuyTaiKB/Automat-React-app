@@ -1,3 +1,5 @@
+import {Table} from 'react-bootstrap'
+
 const StateTransitionTable=(props)=>{
     const graphData=props.graphData;
     const NextStates=(startId,symbol)=>{
@@ -33,7 +35,7 @@ const StateTransitionTable=(props)=>{
     return(
         <>
             <b>5. Přechodová Tabulka</b>
-            <table className="table table-info table-bordered">
+            <Table  variant="info" hover bordered>
                 <thead>
                     <tr>
                         <th>Stavy\Znaky</th>
@@ -52,7 +54,7 @@ const StateTransitionTable=(props)=>{
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </Table>
         </>
     );
 }
