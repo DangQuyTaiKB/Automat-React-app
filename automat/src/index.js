@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-//bootstrap library
+//npm install file-saver
+//npm install react-bootstrap bootstrap
+//npm install react-router-dom@6
 import 'bootstrap/dist/css/bootstrap.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

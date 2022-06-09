@@ -1,26 +1,27 @@
 import './App.css';
-import { useState } from 'react';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
-import NavbarComponent from './components/common/navbar';
-
+import Navigation from './components/common/navigation';
 import Home from './pages/home';
 import Automat from './pages/automat';
 import Documents from './pages/documents';
+import Templates from './pages/templates';
 import ContactUs from "./pages/contactUs";
 
 function App() {
-  const [page,setPage]=useState("automat");
-  const HandleSelect=(key)=>{
-    setPage(key);
-  }
   return(
-    <>
-      <NavbarComponent handleSelect={HandleSelect}/>
-      {page==="automat"?<Automat/>:<></>}
-      {page==="contactUs"?<ContactUs/>:<></>}
-      {page==="home"?<Home/>:<></>}
-      {page==="documents"?<Documents/>:<></>}
-    </>
+    <BrowserRouter>
+      <div className="app">
+      <Navigation/>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="automat" element={<Automat/>}/>
+        <Route path="documents" element={<Documents/>}/>
+        <Route path="templates" element={<Templates/>}/>
+        <Route path="contactUs" element={<ContactUs/>}/>
+      </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

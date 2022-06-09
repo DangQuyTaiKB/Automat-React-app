@@ -12,17 +12,3 @@ Pojmem orientovaný graf se v teorii grafů označuje takový graf, jehož hrany
 O HTML, CSS, Java Script
 ReactJS, SVG…
 
-3. Object:
-Components: 
--automat
--hrana 
--vrchol
-.........
-
-4. Základní funkce: 
--přidat objekty (kruhy), odstranit objekt
--přidat čáru spojující dva objekty, 
--přesunout objekty o pozice: mouse, input pozice...
--Export data... jako SVG, PNG....
-
-5. 
