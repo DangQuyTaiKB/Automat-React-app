@@ -17,22 +17,30 @@ function Automat(){
         'edges':[
             {'id':0,'startId':0,'endId':1, 'symbols':'a'}
         ],
-        "graphInf":{
-            "name": "Example",
-            "symbols":[
-                {'id':0,'name':'a','label':'meaning of a'}
-            ]
-        }
+        "symbols":[
+            {'id':0,'name':'a','label':'meaning of a'}
+        ],
+        "names":[
+            {"automat":"Example"}
+        ]
     };
     const [graphData,setGraphData]=useState(initialData);
     // const [textSVG, setTextSVG]=useState("");
     const [files,setFiles]= useState("");
 
+    // const HandleOnChange=(oldValue,newValue)=>{
+    //     const newGraph={
+    //         'points':[...graphData.points],
+    //         'edges':[...graphData.edges],
+    //         'graphInf':{...graphData.graphInf}
+    //     };
+    // }
     const OnRemovePoint= (removedId)=>{
         const newGraph={
             'points': graphData.points.filter(point=>(point.id!==removedId)),
             'edges': graphData.edges.filter(edge=>((edge.startId!==removedId)&&(edge.endId!==removedId))),
-            'graphInf':{...graphData.graphInf}
+            'symbols':[...graphData.graphInf],
+            'names':[...graphData.names]
         }
         setGraphData(newGraph);
     }
@@ -40,7 +48,8 @@ function Automat(){
         const newGraph={
             'points':[...graphData.points],
             'edges':graphData.edges.filter(edge=>(edge.id!==removedId)),
-            'graphInf':{...graphData.graphInf}
+            'symbols':[...graphData.graphInf],
+            'names':[...graphData.names]
         }
         setGraphData(newGraph);
     }
@@ -48,10 +57,8 @@ function Automat(){
         const newGraph={
             'points':[...graphData.points],
             'edges':[...graphData.edges],
-            'graphInf':{
-                "name":graphData.graphInf.name,
-                "symbols":graphData.graphInf.symbols.filter(symbol=>(symbol.id!==removedId))
-            }
+            'symbols':graphData.symbols.filter(symbol=>(symbol.id!==removedId)),
+            'names':[...graphData.names]
         }
         setGraphData(newGraph);
     }
@@ -66,7 +73,8 @@ function Automat(){
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
-                'graphInf':{...graphData.graphInf}
+                'symbols':[...graphData.graphInf],
+                'names':[...graphData.names]
             };
             for(let i=0;i<newGraph.points.length;i++){
                 if(p_point.id===newGraph.points[i].id){
@@ -89,7 +97,8 @@ function Automat(){
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
-                'graphInf':{...graphData.graphInf}
+                'symbols':[...graphData.graphInf],
+                'names':[...graphData.names]
             };
             //Pokud změníme hranu, kde již existuje dvojice čísel [S, E], změna nejde.
             if(graphData.edges.filter(edge=>(edge.startId===startId&&edge.endId===endId)).length===0){
@@ -110,15 +119,16 @@ function Automat(){
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
-                'graphInf':{...graphData.graphInf}
+                'symbols':[...graphData.graphInf],
+                'names':[...graphData.names]
             };
             //I cant use include, indexOf with list of dictionary
-            const otherSymbols=newGraph.graphInf.symbols.filter(symbol=>(symbol.id!==symbolId));
+            const otherSymbols=newGraph.symbols.filter(symbol=>(symbol.id!==symbolId));
             //Pokud změníme symbol, jehož název již existuje, změna nejde.
             if(otherSymbols.filter(symbol=>(symbol.name===symbolName)).length===0){
-                for(let i=0;i<newGraph.graphInf.symbols.length;i++){
-                    if(symbolId===newGraph.graphInf.symbols[i].id){
-                        newGraph.graphInf.symbols[i]=newSymbol;
+                for(let i=0;i<newGraph.symbols.length;i++){
+                    if(symbolId===newGraph.symbols[i].id){
+                        newGraph.symbols[i]=newSymbol;
                     }
                 }
             }
@@ -137,7 +147,8 @@ function Automat(){
         const newGraph={
             'points':[...graphData.points], //nefunguje [...gr,newPoint]
             'edges':[...graphData.edges],
-            'graphInf':{...graphData.graphInf}
+            'symbols':[...graphData.graphInf],
+            'names':[...graphData.names]
         };
         newGraph.points.push(newPoint);
         setGraphData(newGraph);
@@ -161,7 +172,8 @@ function Automat(){
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
-                'graphInf':{...graphData.graphInf}
+                'symbols':[...graphData.graphInf],
+                'names':[...graphData.names]
             };
             //Pokud vytvoříte hranu, která [S, E] odpovídá stávající hraně, nahradí starou hranu.
             if(graphData.edges.filter(edge=>(edge.startId===startId&&edge.endId===endId)).length>0){
@@ -181,18 +193,19 @@ function Automat(){
     }
     const HandleNewSymbol=()=>{
         let id=0;
-        if(graphData.graphInf.symbols.length!==0){
-            id=graphData.graphInf.symbols[graphData.graphInf.symbols.length-1].id+1;
+        if(graphData.symbols.length!==0){
+            id=graphData.symbols[graphData.symbols.length-1].id+1;
         }
-        const nameOfLastSymbol=graphData.graphInf.symbols[graphData.graphInf.symbols.length-1].name
+        const nameOfLastSymbol=graphData.symbols[graphData.symbols.length-1].name
         const name=String.fromCharCode(nameOfLastSymbol.charCodeAt(0)+1);
         const newSymbol={'id':id,"name":name,'label':''};
         const newGraph={
             'points':[...graphData.points], 
             'edges':[...graphData.edges],
-            'graphInf':{...graphData.graphInf}
+            'symbols':[...graphData.graphInf],
+            'names':[...graphData.names]
         };
-        newGraph.graphInf.symbols.push(newSymbol);
+        newGraph.symbols.push(newSymbol);
         setGraphData(newGraph);
     }
     

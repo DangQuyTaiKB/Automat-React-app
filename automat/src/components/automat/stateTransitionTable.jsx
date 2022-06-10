@@ -39,7 +39,7 @@ const StateTransitionTable=(props)=>{
                 <thead>
                     <tr>
                         <th>Stavy\Znaky</th>
-                        {graphData.graphInf.symbols.map(symbol=>(
+                        {graphData.symbols.map(symbol=>(
                             <th>{symbol.name}</th>
                         ))}
                     </tr>
@@ -48,7 +48,7 @@ const StateTransitionTable=(props)=>{
                     {graphData.points.map(point=>(
                         <tr>
                             <td>{State(point)}</td>
-                            {graphData.graphInf.symbols.map(symbol=>(
+                            {graphData.symbols.map(symbol=>(
                                 <td>{NextStates(point.id,symbol.name)}</td>
                             ))}
                         </tr>

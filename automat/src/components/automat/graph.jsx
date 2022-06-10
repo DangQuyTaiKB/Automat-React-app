@@ -36,7 +36,8 @@ const Graph=(props)=>{
                 points={graphData.points}
             />
             <GraphInf
-                graphInf={graphData.graphInf}
+                names={graphData.names}
+                symbols={graphData.symbols}
                 points={graphData.points}
                 width={width}
             />

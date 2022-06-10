@@ -21,7 +21,7 @@ const Handle=(props)=>{
             />
             <br/>
             <HandleSymbols
-                symbols={graphData.graphInf.symbols}
+                symbols={graphData.symbols}
                 onRemoveSymbol={props.onRemoveSymbol}
                 handleSymbolChange={props.handleSymbolChange}
                 handleNewSymbol={props.handleNewSymbol}

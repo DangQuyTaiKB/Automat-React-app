@@ -9,11 +9,11 @@
         {"id":2,"startId":1,"endId":0,"symbols":"b"},
         {"id":3,"startId":0,"endId":0,"symbols":"b"}
     ],
-    "graphInf":{
-        "name": "Turnstile",
-        "symbols":[
-            {"id":0,"name":"a","label":"Coin"},
-            {"id":1,"name":"b","label":"Push"}
-        ]
-    }
+    "symbols":[
+        {"id":0,"name":"a","label":"Coin"},
+        {"id":1,"name":"b","label":"Push"}
+    ],
+    "names":[
+        {"automat":"Turnstile"}
+    ]
 }

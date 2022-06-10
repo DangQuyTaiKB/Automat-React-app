@@ -1,20 +1,22 @@
 const GraphInf=(props)=>{
     const points=props.points;
-    const graphInf=props.graphInf;
+    const names=props.names;
+    const symbols=props.symbols;
     const width=props.width;
+
     const x=810
     let y=50;
     const distance=20;
     return (
         <>
-            <text x={x} y={y} fill="red">Automat: {graphInf.name}</text>
+            <text x={x} y={y} fill="red">Automat: {names.automat}</text>
             {y+=distance}
             {points.map(point=>{
                 y+=distance;
                 return <text x={x} y={y} fill="red">{point.label} {point.state} : {point.meaning}</text>
             })}
             {y+=distance}
-            {graphInf.symbols.map(symbol=>{
+            {symbols.map(symbol=>{
                 y+=distance;
                 return <text x={x} y={y} fill="red">Symbol {symbol.name}: {symbol.label}</text>
             })}
