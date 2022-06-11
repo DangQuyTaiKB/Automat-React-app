@@ -1,12 +1,12 @@
 import {Navbar,Nav,Container} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import logo from 'C:/Users/DMX HANG TRAM/React Project/Main/Tai_Hiep/automat/src/logo.svg';
+// import logo from 'C:/Users/DMX HANG TRAM/React Project/Main/Tai_Hiep/automat/src/logo.svg';
 const Navigation=(props)=>{
     return(
         <Navbar expend="lg" bg="dark" variant="dark" sticky="top">
         <Container fluid>
           <Navbar.Brand href="/"> 
-            <img src={logo} width="40" height="40"  alt="React logo"/>
+            {/* <img src={logo} width="40" height="40"  alt="React logo"/> */}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
