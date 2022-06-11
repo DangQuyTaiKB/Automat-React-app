@@ -36,19 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-table {
-  border: 0.5px solid rgb(12, 12, 14);
-  width: 400px;
-  height: 30px;
-}
-  
-td, tr {
-  text-align: center;
-  border: 1px solid black;
-  padding: 7px;
-}
-th{
-  /* text-align: center; */
-  padding: 2px;
-}
