@@ -43,7 +43,7 @@ function Automat(){
         };
         setGraphData(newGraph);
     }
-    const HandlePointChange=(pointId, input)=>{
+    const HandlePointChange=(pointId, input)=>{ 
         const px=(input.split(" ")[0]!=="")?Number(input.split(" ")[0]):NaN;
         const py=(input.split(" ")[1]!=="")?Number(input.split(" ")[1]):NaN;
         if(!isNaN(px)&&!isNaN(py)){

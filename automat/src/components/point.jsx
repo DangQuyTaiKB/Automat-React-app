@@ -9,7 +9,8 @@ const Point=(props)=>{
         //initial state
         return <> 
             <line x1={x-3*radius} y1={y} x2={x-radius} y2={y} stroke="black" strokeWidth="2"/>
-            <polygon 
+            <polygon
+            // vẽ cái mũi tên 
                 points={[
                     [x-radius,y],
                     [x-radius-h,y+h],

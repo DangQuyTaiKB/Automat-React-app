@@ -11,6 +11,7 @@ const Edge=(props)=>{
     const h=10; //vyska trojuhelnik sipky
     const length_ab = Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2);
     if(label==='obecna'){
+        // kiểu trừ đi một khoảng r để cho nó đỡ chạm vào đừơng tròn
         const x1=a.x+(b.x-a.x)*(radius/length_ab);
         const y1=a.y+(b.y-a.y)*(radius/length_ab);
         const x2=b.x-(b.x-a.x)*(radius/length_ab);
