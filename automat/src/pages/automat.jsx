@@ -17,7 +17,7 @@ function Automat(props){
         const newGraph={
             'points': graphData.points.filter(point=>(point.id!==removedId)),
             'edges': graphData.edges.filter(edge=>((edge.startId!==removedId)&&(edge.endId!==removedId))),
-            'symbols':[...graphData.graphInf],
+            'symbols':[...graphData.symbols],
             'names':[...graphData.names]
         }
         setGraphData(newGraph);
@@ -26,7 +26,7 @@ function Automat(props){
         const newGraph={
             'points':[...graphData.points],
             'edges':graphData.edges.filter(edge=>(edge.id!==removedId)),
-            'symbols':[...graphData.graphInf],
+            'symbols':[...graphData.symbols],
             'names':[...graphData.names]
         }
         setGraphData(newGraph);
@@ -51,7 +51,7 @@ function Automat(props){
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
-                'symbols':[...graphData.graphInf],
+                'symbols':[...graphData.symbols],
                 'names':[...graphData.names]
             };
             for(let i=0;i<newGraph.points.length;i++){
@@ -75,7 +75,7 @@ function Automat(props){
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
-                'symbols':[...graphData.graphInf],
+                'symbols':[...graphData.symbols],
                 'names':[...graphData.names]
             };
             //Pokud změníme hranu, kde již existuje dvojice čísel [S, E], změna nejde.
@@ -97,7 +97,7 @@ function Automat(props){
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
-                'symbols':[...graphData.graphInf],
+                'symbols':[...graphData.symbols],
                 'names':[...graphData.names]
             };
             //I cant use include, indexOf with list of dictionary
@@ -125,7 +125,7 @@ function Automat(props){
         const newGraph={
             'points':[...graphData.points], //nefunguje [...gr,newPoint]
             'edges':[...graphData.edges],
-            'symbols':[...graphData.graphInf],
+            'symbols':[...graphData.symbols],
             'names':[...graphData.names]
         };
         newGraph.points.push(newPoint);
@@ -150,7 +150,7 @@ function Automat(props){
             const newGraph={
                 'points':[...graphData.points],
                 'edges':[...graphData.edges],
-                'symbols':[...graphData.graphInf],
+                'symbols':[...graphData.symbols],
                 'names':[...graphData.names]
             };
             //Pokud vytvoříte hranu, která [S, E] odpovídá stávající hraně, nahradí starou hranu.
@@ -180,7 +180,7 @@ function Automat(props){
         const newGraph={
             'points':[...graphData.points], 
             'edges':[...graphData.edges],
-            'symbols':[...graphData.graphInf],
+            'symbols':[...graphData.symbols],
             'names':[...graphData.names]
         };
         newGraph.symbols.push(newSymbol);
