@@ -16,7 +16,7 @@ const ContactUs=(props)=>{
                         <br/>
                         Email:
                     </Card.Text>
-                    <Card.Link href="#">Card Link</Card.Link>
+                    <Card.Link href="https://www.facebook.com/hiep.nguyenthanh.123276">Card Link</Card.Link>
                     </Card.Body>
                     <Card.Footer>
                         <small className="text-muted">hhhhh</small>
@@ -28,7 +28,7 @@ const ContactUs=(props)=>{
                     <Card.Header as="h3">Student</Card.Header>
                     <Card.Img variant="top" src="holder.js/100px160" />
                     <Card.Body>
-                    <Card.Title>Card title</Card.Title>
+                    <Card.Title>Dang Quy Tai</Card.Title>
                     <Card.Text>
                         Phone:
                         <br/>
