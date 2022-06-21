@@ -1,3 +1,12 @@
+/**
+ * Render an representation of a point
+ * @param {*} props 
+ * @param {*} props.x - Point's X coordinate
+ * @param {*} props.y - Point's Y coordinate
+ * @param {string} props.label - Point's type
+ * @param {string} props.state - State that is represented by this point
+ * @returns Elements in a <svg> tag like <line>,<circle>,<polygon>,<text>,...
+ */
 const Point=(props)=>{
     const x=props.x;
     const y=props.y
@@ -11,7 +20,6 @@ const Point=(props)=>{
         return <> 
             <line x1={x-3*radius} y1={y} x2={x-radius} y2={y} stroke="black" strokeWidth="2"/>
             <polygon
-            // vẽ cái mũi tên 
                 points={[
                     [x-radius,y],
                     [x-radius-h,y+h],

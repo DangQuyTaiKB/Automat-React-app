@@ -1,8 +1,20 @@
 import {useState} from 'react'
-
+/**
+ * Render word test of the automaton
+ * @param {*} props 
+ * @param {*} props.graphData - Graph's data
+ * @returns <input> tag for tested word, <p> tag for show the result
+ */
 const WordTest=(props)=>{
     const graphData=props.graphData;
     const [conclusion,setConclusion]=useState("");
+
+    /**
+     * function that returns the next index when we go from a state(point) following a symbol
+     * @param {*} startId - index of start state(point)
+     * @param {*} symbol - symbol that is used
+     * @returns index number
+     */
     const NextId=(startId,symbol)=>{
         let result="";
         let isExisted=false;
@@ -17,10 +29,14 @@ const WordTest=(props)=>{
         }
         return result;
     }
+    /**
+     * function that handle word test
+     * @param {*} input - tested word
+     */
     const HandleWordTest=(input)=>{
         if(input!==undefined&&input!==""){
             const word=input;
-            let startId=0; //mac dinh la 0, nhung phong truong hop khac
+            let startId=0; 
             let endId=0;
             
             for(let i=0;i<graphData.points.length;++i){
