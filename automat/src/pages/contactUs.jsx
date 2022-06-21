@@ -1,49 +1,50 @@
-import {Card,Row,Col,Button} from  'react-bootstrap'
+import {Card,Row,Col,Button, CardGroup} from  'react-bootstrap'
 
 const ContactUs=(props)=>{
     return(
-        <Row>
-            <Col>
+        <>
+            <p style={{paddingLeft: "10em"}}>
+            <h2>Poděkování</h2>
+            Chtěli bychom poděkovat všem učitelům, že nás učí, především prof. Dr. Ing. Alexandr Štefek, který nás tímto projektem provedl.
+            <h2>Zpracovali:</h2>
+            </p>
+            <Row style={{paddingLeft: "10em"}}>
                 <Card border="primary" style={{ width: '18rem'}}>
                     <Card.Header as="h3">Student</Card.Header>
-                    <Card.Img variant="top" src="holder.js/100px160" />
                     <Card.Body>
-                    <Card.Title>Nguyen Thanh Hiep</Card.Title>
-                    <Card.Text>
-                        Phone:
-                        <br/>
-                        Adress:
-                        <br/>
-                        Email:
-                    </Card.Text>
-                    <Card.Link href="https://www.facebook.com/hiep.nguyenthanh.123276">Card Link</Card.Link>
+                        <Card.Title>Nguyen Thanh Hiep</Card.Title>
+                        <Card.Img width="100" height="200" src={avatar} />
+                        <Card.Text>
+                                Phone:
+                                <br/>
+                                Adress:
+                                <br/>
+                                Email:
+                        </Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        <small className="text-muted">hhhhh</small>
+                        <small className="text-muted">Group: 22-5-KB-C</small>
                     </Card.Footer>
                 </Card>
-            </Col>
-            <Col>
                 <Card border="primary" style={{ width: '18rem'}}>
                     <Card.Header as="h3">Student</Card.Header>
-                    <Card.Img variant="top" src="holder.js/100px160" />
                     <Card.Body>
-                    <Card.Title>Dang Quy Tai</Card.Title>
-                    <Card.Text>
-                        Phone:
-                        <br/>
-                        Adress:
-                        <br/>
-                        Email:
-                    </Card.Text>
-                    <Card.Link href="#">Card Link</Card.Link>
+                        <Card.Title>Dang Quy Tai</Card.Title>
+                        <Card.Img width="100" height="200" src={avatar} />
+                        <Card.Text>
+                                Phone:
+                                <br/>
+                                Adress:
+                                <br/>
+                                Email:
+                        </Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        <small className="text-muted">hhhhh</small>
+                        <small className="text-muted">Group: 22-5-KB-C</small>
                     </Card.Footer>
                 </Card>
-            </Col>
-        </Row>
+            </Row>
+    </>
     );
 }
 export default ContactUs

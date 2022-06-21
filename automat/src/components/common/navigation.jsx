@@ -5,7 +5,7 @@ const Navigation=(props)=>{
   return(
       <Navbar expend="lg" bg="dark" variant="dark" sticky="top">
         <Container fluid>
-          <Navbar.Brand> 
+          <Navbar.Brand href="/"> 
             <img src={logo} width="40" height="40"  alt="React logo"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

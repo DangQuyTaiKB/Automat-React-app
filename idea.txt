@@ -3,9 +3,15 @@ https://docs.google.com/document/d/1jyPcCqyJBUcQUuCWKe1bnesYFhwugjxBqhPK9178fMg/
 
 Project Name: 
 Name: 
-10. S využitím knihovny ReactJS vytvořte komponentu pro zobrazení a minimalistickou editaci orientovaného grafu, tj. entity s pojmenovanými vrcholy (odchozí a příchozí hrany) a hranami (počáteční a koncový vrchol). Pro vizualizaci využijte SVG. Potřebná data převezměte z props
+10. S využitím knihovny ReactJS vytvořte komponentu pro zobrazení a minimalistickou editaci orientovaného grafu, 
+tj. entity s pojmenovanými vrcholy (odchozí a příchozí hrany) a hranami (počáteční a koncový vrchol). 
+Pro vizualizaci využijte SVG. Potřebná data převezměte z props
 
-10. Using the ReactJS library, create a component for displaying and minimalist editing of the oriented graph, ie entities with named vertices (outgoing and incoming edges) and edges (starting and ending vertices). Use SVG for visualization. Take the necessary data from the props
+10. Using the ReactJS library, create a component for displaying and minimalist editing of the oriented graph, 
+ie entities with named vertices (outgoing and incoming edges) and edges (starting and ending vertices). 
+Use SVG for visualization. Take the necessary data from the props
 
-10. Sử dụng thư viện ReactJS, tạo một thành phần để hiển thị và chỉnh sửa tối giản đồ thị có định hướng, tức là các thực thể có các đỉnh được đặt tên (cạnh đi và đến) và các cạnh (đỉnh bắt đầu và kết thúc). Sử dụng SVG để trực quan hóa. Lấy dữ liệu cần thiết từ các đạo cụ
+10. Sử dụng thư viện ReactJS, tạo một thành phần để hiển thị và chỉnh sửa tối giản đồ thị có định hướng, 
+tức là các thực thể có các đỉnh được đặt tên (cạnh đi và đến) và các cạnh (đỉnh bắt đầu và kết thúc). 
+Sử dụng SVG để trực quan hóa. Lấy dữ liệu cần thiết từ các đạo cụ
 
