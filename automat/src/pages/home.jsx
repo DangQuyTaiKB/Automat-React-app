@@ -30,7 +30,7 @@ const Home=(props)=>{
             1. Handle: 
             <br/>&emsp;- Komponenta je zodpovědná za poskytování proměnných vrcholů, hran, symbolů a funkcí pro jejich úpravu, přidání nebo odstranění. Pokládá se z komponent HandlePoints, HandleEdges a HandleSymbols.
             <br/>2. Graph:
-            <br/>&emsp;- Komponenta představuje automat ve formátu SVG. Pokládá se z komponent Points,Edges a GrafInf.
+            <br/>&emsp;- Komponenta představuje automat ve formátu SVG. Pokládá se z komponent Points,Edges a GraphInf.
             <br/>3. WordTest:
             <br/>&emsp;- Komponenta určuje, zda slovo je přijímáno automatem.
             <br/>4. StateTransitionTable:
