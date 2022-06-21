@@ -1,6 +1,6 @@
 import Edge from './edge'
 /**
- * Render an representation of the set of edges
+ * Render a representation of the set of edges
  * @param {*} props 
  * @param {*} props.edges - Set of graph's edges
  * @param {*} props.points - Set of graph's points

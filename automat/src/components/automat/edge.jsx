@@ -1,5 +1,5 @@
 /**
- * Render an representation of an edge
+ * Render a representation of an edge
  * @param {*} props 
  * @param {*} props.points - Set of graph's points
  * @param {*} props.startId - Edge's start index

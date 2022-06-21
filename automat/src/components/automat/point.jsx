@@ -1,5 +1,5 @@
 /**
- * Render an representation of a point
+ * Render a representation of a point
  * @param {*} props 
  * @param {*} props.x - Point's X coordinate
  * @param {*} props.y - Point's Y coordinate
