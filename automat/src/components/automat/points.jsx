@@ -1,6 +1,6 @@
 import Point from'./point'
 /**
- * Render an representation of the set of points
+ * Render a representation of the set of points
  * @param {*} props 
  * @param {*} props.points - Set of graph's points
  * @returns List of the <Point> components- representation of the points
