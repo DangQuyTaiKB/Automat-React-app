@@ -49,6 +49,7 @@ const ContactUs=(props)=>{
                 </Card.Footer>
             </Card>
         </Row>
+        <a style={{paddingLeft: "10em"}} href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">More information!</a>
         </>
     );
 }
